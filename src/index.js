@@ -1,15 +1,26 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import { BrowserRouter, Route, Switch } from "react-router-dom";
 import { Provider } from 'react-redux';
 import { createStore, applyMiddleware } from 'redux';
-
-import App from './components/app';
+import createLogger from 'redux-logger';
+import promise from "redux-promise";
+import HomePage from './containers/HomePage';
 import reducers from './reducers';
+import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 
-const createStoreWithMiddleware = applyMiddleware()(createStore);
+const createStoreWithMiddleware = applyMiddleware(promise, createLogger())(createStore);
 
 ReactDOM.render(
-  <Provider store={createStoreWithMiddleware(reducers)}>
-    <App />
-  </Provider>
-  , document.querySelector('.container'));
+    <Provider store={createStoreWithMiddleware(reducers)}>
+        <MuiThemeProvider>
+            <BrowserRouter>
+                <div>
+                    <Switch>
+                        <Route path="*" component={HomePage} />
+                    </Switch>
+                </div>
+            </BrowserRouter>
+        </MuiThemeProvider>
+    </Provider>
+    , document.querySelector('.container'));

@@ -1,9 +1,9 @@
 import React from 'react';
 import TextField from 'material-ui/TextField';
-import HOC from './HOC';
-import withCondition from '../utils/withCondition';
+import Conditional from './Conditional';
+import Field from './Field';
 
-class MyComponent extends React.Component {
+class TextInput extends React.Component {
     pick(o, attrs) {
         return Object.assign({}, ...attrs.map(attr => ({ [attr]: o[attr] })));
     }
@@ -11,6 +11,7 @@ class MyComponent extends React.Component {
     render() {
         const { data, placeholder, label, ...rest } = this.props;
         const textFieldProps = this.pick(rest, Object.keys(TextField.propTypes));
+
         return (
             <div>
                 <h1>{data}</h1>
@@ -27,4 +28,4 @@ class MyComponent extends React.Component {
     }
 }
 
-export default withCondition(HOC(MyComponent));
+export default Conditional(Field(TextInput));

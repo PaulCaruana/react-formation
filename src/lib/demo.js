@@ -38,7 +38,7 @@ ReactDOM.render((
                 name="website"
                 url
                 placeholder="Type your website url here"
-                label="Website"/>
+                label="Website" />
 
             <SubmitButton/>
         </Form>

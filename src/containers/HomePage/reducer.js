@@ -7,6 +7,7 @@ const initialState = { //define initial state - an empty form
 };
 
 export default (state = initialState, action = null) => {
+    console.log(state)
     switch (action.type) {
 
         case c.FORM_UPDATE_VALUE:

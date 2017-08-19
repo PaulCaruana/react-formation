@@ -1,14 +1,13 @@
 import React, { Component } from 'react';
-import { Form, TextInput } from 'components';
+import TextField from 'material-ui/TextField';
 
-import { connect } from 'react-redux';
-import * as actions from './actions';
+import { Form, Text } from 'components';
 
 class HomePage extends Component {
     render() {
         return (
             <Form>
-                <TextInput
+                <Text
                     name="name"
                     required
                     placeholder="Type your name here"
@@ -19,4 +18,4 @@ class HomePage extends Component {
     }
 }
 
-export default connect(state => state, actions)(HomePage);
+export default HomePage;

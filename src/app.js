@@ -5,7 +5,7 @@ export default class App extends Component {
     render() {
         return (
             <Form>
-                <div>Hello</div>
+                <div>Hello2</div>
             </Form>
         );
     }

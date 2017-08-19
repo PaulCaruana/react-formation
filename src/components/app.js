@@ -1,9 +1,13 @@
 import React, { Component } from 'react';
+import Form from './Form';
+
 
 export default class App extends Component {
     render() {
         return (
-            <div>React simple starter</div>
+            <Form>
+                <div>Hello3</div>
+            </Form>
         );
     }
 }

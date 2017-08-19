@@ -7,13 +7,17 @@ import { createStore, applyMiddleware, compose } from 'redux';
 import thunk from 'redux-thunk';
 import createLogger from 'redux-logger';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
+import injectTapEventPlugin from 'react-tap-event-plugin';
 import store from './store';
-import App from './app';
+import App from './components/app';
+import HomePage from './containers/HomePage';
 import * as actions from './actions';
 
 import reducers from './reducers';
 
 const reduxMiddleware = applyMiddleware(thunk, createLogger());
+
+injectTapEventPlugin();
 
 ReactDOM.render(
     <Provider store={compose(reduxMiddleware)(createStore)(store)}>
@@ -21,7 +25,7 @@ ReactDOM.render(
             <BrowserRouter>
                 <div>
                     <Switch>
-                        <Route path="*" component={App} />
+                        <Route path="*" component={HomePage} />
                     </Switch>
                 </div>
             </BrowserRouter>

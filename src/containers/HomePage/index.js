@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
+import { Form } from 'components';
+
 import { connect } from 'react-redux';
 import * as actions from './actions';
-import Form from 'components/Form';
 
 class HomePage extends Component {
     render() {

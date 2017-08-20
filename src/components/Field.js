@@ -1,6 +1,7 @@
-import React, { PropTypes, Component } from 'react';
+import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import Field from 'lib/field';
-import list from './List';
+import SimpleList from './SimpleList';
 
 export default ComposedComponent => class extends Component {
 
@@ -48,7 +49,7 @@ export default ComposedComponent => class extends Component {
                 value={this.context.values[this.props.name] || ''}
                 onChange={this.onChange.bind(this)}
                 onBlur={this.onBlur.bind(this)}
-                errorText={list(this.field.getVisibleErrors())}
+                errorText={SimpleList(this.field.getVisibleErrors())}
             />
         );
     }

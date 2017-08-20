@@ -1,8 +1,8 @@
-var path = require('path');
+let path = require('path');
 
 module.exports = {
   entry: [
-    './src/inx.js'
+    './src/index.js'
   ],
   output: {
     path: __dirname,

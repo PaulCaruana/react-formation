@@ -11,7 +11,7 @@ class HomePage extends Component {
                     name="name"
                     required
                     placeholder="Type your name here"
-                    label="Your name"
+                    label="Your name.."
                 />
             </Form>
         );

@@ -1,28 +1,39 @@
-// src/index.js
+
 import React from 'react';
-import PropTypes from 'prop-types';
 import ReactDOM from 'react-dom';
-import { createStore, applyMiddleware, compose } from 'redux';
+import { BrowserRouter, Route, Switch } from "react-router-dom";
 import { Provider, connect } from 'react-redux';
+import { createStore, applyMiddleware, compose } from 'redux';
 import thunk from 'redux-thunk';
 import createLogger from 'redux-logger';
-import Form from './components/Form';
-import * as actions from './actions';
-import store from './store';
-import injectTapEventPlugin from 'react-tap-event-plugin';
+import promise from "redux-promise";
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
+import injectTapEventPlugin from 'react-tap-event-plugin';
+import store from './store';
+import HomePage from './containers/HomePage';
+import * as actions from './actions';
 
-
-injectTapEventPlugin();
-
-const SmartForm = connect(state => state, actions)(Form);
+import reducers from './reducers';
 
 const reduxMiddleware = applyMiddleware(thunk, createLogger());
 
-export default props => (
+injectTapEventPlugin();
+
+
+//const createStoreWithMiddleware = applyMiddleware(promise, createLogger())(createStore);
+//createStoreWithMiddleware(reducers)
+
+
+ReactDOM.render(
     <Provider store={compose(reduxMiddleware)(createStore)(store)}>
         <MuiThemeProvider>
-            <SmartForm {...props}/>
+            <BrowserRouter>
+                <div>
+                    <Switch>
+                        <Route path="*" component={HomePage} />
+                    </Switch>
+                </div>
+            </BrowserRouter>
         </MuiThemeProvider>
     </Provider>
-);
+    , document.querySelector('.container'));

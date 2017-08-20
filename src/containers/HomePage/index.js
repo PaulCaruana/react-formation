@@ -11,7 +11,14 @@ class HomePage extends Component {
                     name="name"
                     required
                     placeholder="Type your name here"
-                    label="Your name.."
+                    label="Your name"
+                />
+                <TextInput
+                    name="email"
+                    required
+                    email
+                    placeholder="Type your email here"
+                    label="E-mail"
                 />
             </Form>
         );

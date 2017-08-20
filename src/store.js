@@ -1,25 +1,16 @@
+import { handleActions } from 'redux-actions';
 import * as c from './constants';
-import assign from 'lodash.assign';
 
-const initialState = { //define initial state - an empty form
-  values: {
-  }
-};
+const initialState = { values: {} };
 
-export default (state = initialState, action = null) => {
-  switch (action.type) {
+export default handleActions({
+    [c.FORM_UPDATE_VALUE](state, action) {
+        const newState = { ...state };
+        newState.values[action.payload.name] = action.payload.value;
+        return newState;
+    },
 
-    case c.FORM_UPDATE_VALUE:
-      return  assign({}, state, {
-        values: assign({}, state.values, {
-          [action.name]: action.value
-        })
-      });
-
-    case c.FORM_RESET:
-      return initialState;
-
-    default:
-      return state;
-  }
-}
+    [c.FORM_RESET](state, action) {
+        return initialState;
+    }
+}, initialState);

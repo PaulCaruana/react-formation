@@ -9,7 +9,6 @@ import formFields from 'lib/formFields';
 class Form extends Component {
     constructor(props) {
         super(props);
-        console.log(props)
         this.registerChild = this.registerChild.bind(this);
         this.removeChild = this.removeChild.bind(this);
         this.submit = this.submit.bind(this);

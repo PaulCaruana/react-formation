@@ -1,5 +1,5 @@
 import { combineReducers } from 'redux';
-import homepageReducer from '../containers/HomePage/reducer';
+//import homepageReducer from '../containers/HomePage/reducer';
 
 const rootReducer = combineReducers({
     state: (state = {}) => state

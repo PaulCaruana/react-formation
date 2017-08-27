@@ -1,14 +1,8 @@
-import { combineReducers } from 'redux';
-//import homepageReducer from '../containers/HomePage/reducer';
+import { combineReducers } from "redux";
+import formReducer from './form';
 
 const rootReducer = combineReducers({
-    state: (state = {}) => state
+    form: formReducer
 });
 
 export default rootReducer;
-
-
-/*
-export default combineReducers({
-    homepageReducer
-})*/

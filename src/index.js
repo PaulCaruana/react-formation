@@ -11,8 +11,6 @@ import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import injectTapEventPlugin from 'react-tap-event-plugin';
 import store from './store';
 import HomePage from './containers/HomePage';
-import * as actions from './actions';
-
 import reducers from './reducers';
 
 const reduxMiddleware = applyMiddleware(thunk, createLogger());
@@ -25,7 +23,7 @@ injectTapEventPlugin();
 
 
 ReactDOM.render(
-    <Provider store={compose(reduxMiddleware)(createStore)(store)}>
+    <Provider store={compose(reduxMiddleware)(createStore)(reducers)}>
         <MuiThemeProvider>
             <BrowserRouter>
                 <div>

@@ -23,7 +23,7 @@ injectTapEventPlugin();
 
 
 ReactDOM.render(
-    <Provider store={compose(reduxMiddleware)(createStore)(reducers)}>
+    <Provider store={compose(reduxMiddleware)(createStore)(store)}>
         <MuiThemeProvider>
             <BrowserRouter>
                 <div>

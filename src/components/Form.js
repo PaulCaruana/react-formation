@@ -19,7 +19,7 @@ class Form extends Component {
             update: this.props.update,
             reset: this.props.reset,
             submit: this.submit,
-            values: this.props.form.values,
+            values: this.props.values,
             registerChild: this.registerChild
         };
     }
@@ -69,14 +69,4 @@ Form.childContextTypes = {
     registerChild: PropTypes.func
 };
 
-
-function mapStateToProps(state) {
-    return { form: state.form };
-
-    //return state;
-}
-
-
-export default connect(mapStateToProps)(Form);
-//export default connect(mapStateToProps, { fetchPosts })(Form);
-
+export default connect(state => state, actions)(Form);

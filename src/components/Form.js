@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import { bindActionCreators } from 'redux';
 import { connect } from "react-redux";
 import * as actions from './actions';
 
@@ -16,10 +17,10 @@ class Form extends Component {
 
     getChildContext() {
         return {
-            update: this.props.update,
-            reset: this.props.reset,
+            update: this.props.actions.update,
+            reset: this.props.actions.reset,
             submit: this.submit,
-            values: this.props.values,
+            values: this.props.form.values,
             registerChild: this.registerChild
         };
     }
@@ -69,4 +70,18 @@ Form.childContextTypes = {
     registerChild: PropTypes.func
 };
 
-export default connect(state => state, actions)(Form);
+
+function mapStateToProps(state) {
+    return {
+        form: state.form
+    };
+}
+
+function mapDispatchToProps(dispatch) {
+    return {
+        actions: bindActionCreators(actions, dispatch)
+    };
+}
+
+
+export default connect(mapStateToProps, mapDispatchToProps)(Form);

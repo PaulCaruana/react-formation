@@ -1,3 +1,4 @@
 // src/constants.js
 export const UPDATE_VALUE = 'UPDATE_VALUE';
+export const UPD_VALUE = 'UPD_VALUE';
 export const RESET = 'RESET';

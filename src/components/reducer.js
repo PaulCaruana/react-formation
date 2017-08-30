@@ -1,5 +1,5 @@
 import { handleActions } from 'redux-actions';
-import * as form from '../constants';
+import * as form from './constants';
 
 const initialState = { values: {} };
 

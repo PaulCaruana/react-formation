@@ -9,7 +9,6 @@ import createLogger from 'redux-logger';
 import promise from "redux-promise";
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import injectTapEventPlugin from 'react-tap-event-plugin';
-import store from './store';
 import HomePage from './containers/HomePage';
 import reducers from './reducers';
 

@@ -14,8 +14,6 @@ class TextInput extends React.Component {
 
         return (
             <div>
-                <h1>{data}</h1>
-
                 <div>
                     <TextField
                         {...textFieldProps}

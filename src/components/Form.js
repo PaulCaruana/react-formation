@@ -5,11 +5,12 @@ import { connect } from "react-redux";
 import * as actions from './actions';
 
 import assign from 'lodash.assign';
-import formFields from 'lib/formFields';
+import FormController from 'verity/FormController';
 
 class Form extends Component {
     constructor(props) {
         super(props);
+        this.name = this.props.name;
         this.registerChild = this.registerChild.bind(this);
         this.removeChild = this.removeChild.bind(this);
         this.submit = this.submit.bind(this);
@@ -20,13 +21,13 @@ class Form extends Component {
             update: this.props.actions.update,
             reset: this.props.actions.reset,
             submit: this.submit,
-            values: this.props.form.values,
+            values: this.props[this.name].values,
             registerChild: this.registerChild
         };
     }
 
     componentWillMount() {
-        this.form = formFields(this.props.name, this.props, this);
+        this.form = FormController(this.props.name, this.props, this);
     }
 
     registerChild(child) {
@@ -55,6 +56,7 @@ class Form extends Component {
 }
 
 Form.propTypes = {
+    name: PropTypes.string.isRequired,
     children: PropTypes.node,
     values: PropTypes.object,
     update: PropTypes.func,
@@ -71,9 +73,9 @@ Form.childContextTypes = {
 };
 
 
-function mapStateToProps(state) {
+function mapStateToProps(state, ownProps) {
     return {
-        form: state.form
+        [ownProps.name]: state[ownProps.name]
     };
 }
 
@@ -82,6 +84,5 @@ function mapDispatchToProps(dispatch) {
         actions: bindActionCreators(actions, dispatch)
     };
 }
-
 
 export default connect(mapStateToProps, mapDispatchToProps)(Form);

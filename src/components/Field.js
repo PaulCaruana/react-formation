@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import Field from 'lib/field';
+import FieldController from 'verity/FieldController';
 import SimpleList from './SimpleList';
 
 export default ComposedComponent => class extends Component {
@@ -20,7 +20,7 @@ export default ComposedComponent => class extends Component {
     };
 
     componentWillMount() {
-        this.field = Field(this.props.name, this.props, this);
+        this.field = FieldController(this.props.name, this.props, this);
         this.form = this.context.registerChild(this.field);
     }
 

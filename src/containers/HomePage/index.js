@@ -6,7 +6,7 @@ import { Form, TextInput } from 'components';
 class HomePage extends Component {
     render() {
         return (
-            <Form>
+            <Form name="home">
                 <TextInput
                     name="name"
                     required

@@ -1,8 +1,8 @@
 import { combineReducers } from "redux";
-import form from '../components/reducer';
+import verityForm from '../components/reducer';
 
 const rootReducer = combineReducers({
-    form
+    home: verityForm
 });
 
 export default rootReducer;

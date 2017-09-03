@@ -10,9 +10,9 @@ export default function Field(name, props, component) {
         props: props,
         component: component,
         $errors: {},
-        $form : null,
+        $form: null,
         $isField: true,
-        $isForm : false,
+        $isForm: false,
         updated: function () {
             this.$dirty = true;
             this.$pristine = false;

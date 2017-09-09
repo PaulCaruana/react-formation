@@ -2,23 +2,18 @@ import React from 'react';
 import TextField from 'material-ui/TextField';
 import Conditional from './Conditional';
 import Field from './Field';
+import componentProps from 'verity/componentProps';
 
 class TextInput extends React.Component {
-    pick(o, attrs) {
-        return Object.assign({}, ...attrs.map(attr => ({ [attr]: o[attr] })));
-    }
-
     render() {
-        const { data, placeholder, label, ...rest } = this.props;
-        const textFieldProps = this.pick(rest, Object.keys(TextField.propTypes));
-
+        const props = componentProps(TextField, this.props)
         return (
             <div>
                 <div>
                     <TextField
-                        {...textFieldProps}
-                        hintText={placeholder}
-                        floatingLabelText={label}
+                        hintText={this.props.placeholder}
+                        floatingLabelText={this.props.label}
+                        {...props}
                     />
                 </div>
             </div>

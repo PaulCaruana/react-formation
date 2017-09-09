@@ -1,8 +1,8 @@
 import React, {Component} from 'react';
 import TextField from 'material-ui/TextField';
-import Conditional from './Conditional';
-import Field from './Field';
-import componentProps from 'verity/componentProps';
+import Conditional from 'react-formwork/Conditional';
+import Field from 'react-formwork/Field';
+import componentProps from 'react-formwork/componentProps';
 
 class TextInput extends Component {
     render() {

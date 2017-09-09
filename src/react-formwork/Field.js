@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import FieldController from 'verity/FieldController';
+import FieldController from './fieldController';
 import SimpleList from './SimpleList';
 
 export default ComposedComponent => class extends Component {

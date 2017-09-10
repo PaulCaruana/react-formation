@@ -18,6 +18,19 @@ export default ComposedComponent => class extends Component {
         label: PropTypes.string,
         validate: PropTypes.arrayOf(PropTypes.string)
     };
+/*
+
+    static getProps(component, props) {
+        const componentProps = {};
+        const componentPropsList = Object.keys(component.propTypes);
+        Object.keys(props).forEach(key => {
+            if (componentPropsList.indexOf(key) > -1) {
+                componentProps[key] = props[key];
+            }
+        });
+        return componentProps;
+    }
+*/
 
     componentWillMount() {
         this.field = FieldController(this.props.name, this.props, this);
@@ -32,16 +45,20 @@ export default ComposedComponent => class extends Component {
         this.context.removeChild(this.field);
     }
 
-    onChange(event) {
-        this.context.update(this.props.name, event.target.value);
-        this.field.onChange(event.target.value);
+    onChange(event, index, value) {
+        const fieldValue = value || event.target.value
+        this.context.update(this.props.name, fieldValue);
+        this.field.onChange(fieldValue);
     }
 
-    onBlur(event) {
-        this.field.onBlur(event.target.value);
+    onBlur(event, index, value) {
+        const fieldValue = value || event.target.value
+        this.field.onBlur(fieldValue);
     }
 
     render() {
+       //const props = this.getComponentProps(ComposedComponent);
+        //console.log(props)
         return (
             <ComposedComponent
                 {...this.props}

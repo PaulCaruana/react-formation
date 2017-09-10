@@ -1,8 +1,7 @@
 import React, {Component} from 'react';
 import TextField from 'material-ui/TextField';
-import Conditional from 'react-formwork/Conditional';
-import Field from 'react-formwork/Field';
-import componentProps from 'react-formwork/componentProps';
+import { Conditional, Field } from 'react-formwork';
+import pick from 'es6-pick';
 
 class TextInput extends Component {
     render() {
@@ -10,9 +9,9 @@ class TextInput extends Component {
         return (
             <div>
                 <FormComponent
+                    {...pick(this.props, ...Object.keys(FormComponent.propTypes))}
                     hintText={this.props.placeholder}
                     floatingLabelText={this.props.label}
-                    {...componentProps(FormComponent, this.props)}
                 />
             </div>
         );

@@ -1,7 +1,10 @@
 import { handleActions } from 'redux-actions';
 import * as form from './constants';
 
-const initialState = { values: {} };
+const initialState = {
+    values: {
+    }
+};
 
 export default handleActions({
     [form.UPDATE_VALUE]: (state, action) => {

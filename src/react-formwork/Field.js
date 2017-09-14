@@ -35,6 +35,9 @@ export default ComposedComponent => class extends Component {
     componentWillMount() {
         this.field = FieldController(this.props.name, this.props, this);
         this.form = this.context.registerChild(this.field);
+        if (this.props.defaultValue && this.context.values[this.props.name] === undefined) {
+            this.context.update(this.props.name, this.props.defaultValue);
+        }
     }
 
     componentDidMount() {
@@ -46,7 +49,7 @@ export default ComposedComponent => class extends Component {
     }
 
     onChange(event, index, value) {
-        const fieldValue = value || event.target.value
+        const fieldValue = (value !== undefined) ? value : event.target.value
         this.context.update(this.props.name, fieldValue);
         this.field.onChange(fieldValue);
     }
@@ -57,8 +60,6 @@ export default ComposedComponent => class extends Component {
     }
 
     render() {
-       //const props = this.getComponentProps(ComposedComponent);
-        //console.log(props)
         return (
             <ComposedComponent
                 {...this.props}

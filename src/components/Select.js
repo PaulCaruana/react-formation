@@ -1,9 +1,9 @@
 import React from 'react';
 import SelectField from 'material-ui/SelectField';
 import Option from './Option';
-import { Conditional, Field2 } from 'react-formwork';
+import { Conditional, Field } from 'react-formwork';
 
-export default Field2(SelectField, {
+export default Field(SelectField, {
     hintText: props => props.placeholder,
     floatingLabelText: props => props.label,
     children: props => {

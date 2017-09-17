@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import TextField from 'material-ui/TextField';
-import { Conditional, Field2 } from 'react-formwork';
+import { Conditional, Field } from 'react-formwork';
 
-export default Field2(TextField, {
+export default Field(TextField, {
     hintText: props => props.placeholder,
     floatingLabelText: props => props.label
 });

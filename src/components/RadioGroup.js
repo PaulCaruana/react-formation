@@ -1,8 +1,8 @@
 import React from 'react';
 import { RadioButton, RadioButtonGroup } from 'material-ui/RadioButton';
-import { Conditional, Field2 } from 'react-formwork';
+import { Conditional, Field } from 'react-formwork';
 
-export default Field2(RadioButtonGroup, {
+export default Field(RadioButtonGroup, {
     onChange: props => (event, checked) => props.onChange(event, null, checked),
     valueSelected: props => props.value,
     style: props => ({ display: 'flex', marginTop: 16 }),

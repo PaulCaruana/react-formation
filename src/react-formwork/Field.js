@@ -2,8 +2,9 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import FieldController from './fieldController';
 import SimpleList from './SimpleList';
+import mapProps from './mapProps';
 
-export default ComposedComponent => class extends Component {
+export default (RawComponent, propertyMapper) => class extends Component {
 
     static contextTypes = {
         reset: PropTypes.func.isRequired,
@@ -20,16 +21,19 @@ export default ComposedComponent => class extends Component {
     };
 /*
 
-    static getProps(component, props) {
+    composedComponentProps(props) {
         const componentProps = {};
-        const componentPropsList = Object.keys(component.propTypes);
-        Object.keys(props).forEach(key => {
-            if (componentPropsList.indexOf(key) > -1) {
-                componentProps[key] = props[key];
+        const rawComponent = RawComponent.DecoratedComponent || RawComponent;
+        const rawComponentPropNames = Object.keys(rawComponent.propTypes) || [];
+        const componentPropNames = rawComponentPropNames.concat(propNames);
+        Object.keys(props).forEach(name => {
+            if (componentPropNames.indexOf(name) > -1) {
+                componentProps[name] = props[name];
             }
         });
         return componentProps;
     }
+
 */
 
     componentWillMount() {
@@ -55,20 +59,24 @@ export default ComposedComponent => class extends Component {
     }
 
     onBlur(event, index, value) {
-        const fieldValue = value || event.target.value
+        const fieldValue = value || event.target.value;
         this.field.onBlur(fieldValue);
     }
 
     render() {
+        const rawProps = this.props;
+        const props = {
+            ...rawProps,
+            value: this.context.values[this.props.name] || '',
+            onChange: this.onChange.bind(this),
+            onBlur: this.onBlur.bind(this),
+            errorText: SimpleList(this.field.getVisibleErrors())
+        };
+        const componentProps = mapProps(props, propertyMapper)(RawComponent);
         return (
-            <ComposedComponent
-                {...this.props}
-                {...this.state}
-                value={this.context.values[this.props.name] || ''}
-                onChange={this.onChange.bind(this)}
-                onBlur={this.onBlur.bind(this)}
-                errorText={SimpleList(this.field.getVisibleErrors())}
-            />
+            <div>
+                <RawComponent {...componentProps} />
+            </div>
         );
     }
 };

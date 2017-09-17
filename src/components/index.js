@@ -1,11 +1,8 @@
 export { Form } from 'react-formwork';
 export { default as TextInput } from './TextInput';
-export { default as SelectBox } from './SelectBox';
 export { default as Select } from './Select';
 export { default as Option } from './Option';
-export { default as Toggle } from './Toggle';
 export { default as Switch } from './Switch';
 export { default as Checkbox } from './Checkbox';
-export { default as RadioButtonGroup } from './RadioButtonGroup';
 export { default as RadioGroup } from './RadioGroup';
 export { default as Radio } from './RadioButton';

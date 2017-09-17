@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Form, TextInput, Select, Option, Toggle, Checkbox, RadioGroup, Radio, Switch } from 'components';
+import { Form, TextInput, Select, Option, Checkbox, RadioGroup, Radio, Switch } from 'components';
 
 
 class HomePage extends Component {

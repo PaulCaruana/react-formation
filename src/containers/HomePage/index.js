@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Form, TextInput, TextBox, Select, Option, Toggle, Checkbox, RadioGroup, Radio, Switch } from 'components';
+import { Form, TextInput, Select, Option, Toggle, Checkbox, RadioGroup, Radio, Switch } from 'components';
 
 
 class HomePage extends Component {
@@ -21,7 +21,7 @@ class HomePage extends Component {
         };
         return (
             <Form name="home">
-                <TextBox
+                <TextInput
                     name="suburb"
                     placeholder="Suburb"
                     label="Suburb"

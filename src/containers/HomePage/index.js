@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Form, TextInput, SelectBox, Option, Toggle, Checkbox, RadioButtonGroup, RadioButton } from 'components';
+import { Form, TextInput, TextBox, SelectBox, Option, Toggle, Checkbox, RadioGroup, Radio, Switch } from 'components';
 
 
 class HomePage extends Component {
@@ -21,11 +21,16 @@ class HomePage extends Component {
         };
         return (
             <Form name="home">
-                <RadioButtonGroup name="salutation" required >
-                    <RadioButton value="mr" label="Mr" />
-                    <RadioButton value="mrs" label="Mrs" />
-                    <RadioButton value="ms" label="Ms" />
-                </RadioButtonGroup>
+                <TextBox
+                    name="suburb"
+                    placeholder="Suburb"
+                    label="Suburb"
+                />
+                <RadioGroup name="salutation" required >
+                    <Radio value="mr" label="Mr" />
+                    <Radio value="mrs" label="Mrs" />
+                    <Radio value="ms" label="Ms" />
+                </RadioGroup>
                 <TextInput
                     name="name"
                     required
@@ -40,7 +45,7 @@ class HomePage extends Component {
                     placeholder="Type your email here"
                     label="E-mail"
                 />
-                <Toggle
+                <Switch
                     name="postalAddress"
                     label="Is your postal different than address?"
                 />

@@ -16,5 +16,4 @@ class compositeComponent extends Component {
         );
     }
 }
-compositeComponent.muiName = 'RadioButton';
 export default compositeComponent;

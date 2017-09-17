@@ -10,19 +10,9 @@ export default function mapProps(props, mapper) {
             };
         }, {});
         const allProps = { ...mappedProps, ...props };
-/*
-        const mappedChildren = mappedProps.children;
-        const children = props.children;
-        if (mappedChildren) {
-            allProps.children = children.map(child => {
-                const childProps = child.props;
-                const newChildProps = { ...mappedChildren, ...childProps };
-                const newChild = child;
-                newChild.props = { ...newChildProps };
-                return newChild;
-            });
+        if (mappedProps.children) {
+            allProps.children = mappedProps.children;
         }
-*/
         const componentPropNames = Object.keys(ComposedComponent.propTypes) || [];
         const mappedPropNames = Object.keys(mappedProps) || [];
         const validPropNames = componentPropNames.concat(mappedPropNames);

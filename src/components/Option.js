@@ -1,15 +1,13 @@
-import React, {Component} from 'react';
+import React, { Component } from 'react';
 import MenuItem from 'material-ui/MenuItem';
-import pick from 'es6-pick';
+import { mapProps } from 'react-formwork';
 
 class Option extends Component {
     render() {
-        const FormComponent = MenuItem;
+        const mapper = { primaryText: props => props.label };
+        const componentProps = mapProps(this.props, mapper)(MenuItem);
         return (
-            <MenuItem
-                {...pick(this.props, ...Object.keys(FormComponent.propTypes))}
-                primaryText={this.props.label}
-            />
+            <MenuItem {...componentProps} />
         );
     }
 }

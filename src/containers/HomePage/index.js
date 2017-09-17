@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Form, TextInput, TextBox, SelectBox, Option, Toggle, Checkbox, RadioGroup, Radio, Switch } from 'components';
+import { Form, TextInput, TextBox, Select, Option, Toggle, Checkbox, RadioGroup, Radio, Switch } from 'components';
 
 
 class HomePage extends Component {
@@ -37,7 +37,7 @@ class HomePage extends Component {
                     placeholder="Type your name here"
                     label="Name"
                 />
-                <SelectBox required items={items} label="Contact method" name="contactMethod" />
+                <Select required options={items} label="Contact method" name="contactMethod" />
                 <TextInput
                     name="email"
                     required

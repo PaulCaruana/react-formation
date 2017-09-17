@@ -1,21 +1,8 @@
-import React, {Component} from 'react';
+import React, { Component } from 'react';
 import TextField from 'material-ui/TextField';
-import { Conditional, Field } from 'react-formwork';
-import pick from 'es6-pick';
+import { Conditional, Field2 } from 'react-formwork';
 
-class TextInput extends Component {
-    render() {
-        const FormComponent = TextField;
-        return (
-            <div>
-                <FormComponent
-                    {...pick(this.props, ...Object.keys(FormComponent.propTypes))}
-                    hintText={this.props.placeholder}
-                    floatingLabelText={this.props.label}
-                />
-            </div>
-        );
-    }
-}
-
-export default Conditional(Field(TextInput));
+export default Field2(TextField, {
+    hintText: props => props.placeholder,
+    floatingLabelText: props => props.label
+});

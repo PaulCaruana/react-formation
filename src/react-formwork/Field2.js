@@ -19,6 +19,7 @@ export default (RawComponent, propertyMapper) => class extends Component {
         label: PropTypes.string,
         validate: PropTypes.arrayOf(PropTypes.string)
     };
+/*
 
     composedComponentProps(props) {
         const componentProps = {};
@@ -33,6 +34,7 @@ export default (RawComponent, propertyMapper) => class extends Component {
         return componentProps;
     }
 
+*/
 
     componentWillMount() {
         this.field = FieldController(this.props.name, this.props, this);
@@ -72,7 +74,9 @@ export default (RawComponent, propertyMapper) => class extends Component {
         };
         const componentProps = mapProps(props, propertyMapper)(RawComponent);
         return (
-            <RawComponent {...componentProps} />
+            <div>
+                <RawComponent {...componentProps} />
+            </div>
         );
     }
 };

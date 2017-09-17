@@ -1,49 +1,10 @@
-import React, {Component} from 'react';
-import PropTypes from 'prop-types';
+import React, { Component } from 'react';
 import Checkbox from 'material-ui/Checkbox';
-import { Conditional, Field } from 'react-formwork';
-import pick from 'es6-pick';
+import { Conditional, Field2 } from 'react-formwork';
 
-class CheckBox extends Component {
-
-    static contextTypes = {
-        values: PropTypes.object.isRequired
-    };
-
-    onChecked(event, checked) {
-        this.props.onChange(event, null, checked);
-    }
-
-    render() {
-        const FormComponent = Checkbox;
-/*
-        const styles = {
-            block: {
-                maxWidth: 50,
-                marginTop: 16,
-                marginBottom: 16,
-            }
-        };
-*/
-        const styles = {
-            block: {
-            },
-            checkbox: {
-                marginBottom: 16,
-            },
-        };
-        return (
-            <div style={styles.block}>
-                <FormComponent
-                    label={this.props.label}
-                    style={styles.checkbox}
-                    {...pick(this.props, ...Object.keys(FormComponent.propTypes))}
-                    onCheck={this.onChecked.bind(this)}
-                    checked={this.context.values[this.props.name] || false}
-                />
-            </div>
-        );
-    }
-}
-
-export default Conditional(Field(CheckBox));
+export default Field2(Checkbox, {
+    label: props => props.label,
+    style: props => ({ marginTop: 16 }),
+    onCheck: props => (event, checked) => props.onChange(event, null, checked),
+    checked: props => props.value || false
+});

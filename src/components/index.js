@@ -1,10 +1,23 @@
 import React, { Component } from 'react';
-import { TextField, Toggle, Checkbox as muiCheckbox, MenuItem, SelectField, RadioButton, RadioButtonGroup } from 'material-ui';
-import { mapProps } from 'react-formwork';
-
-import { Conditional, Field } from 'react-formwork';
+import { TextField, Toggle, Checkbox as muiCheckbox, MenuItem, SelectField, RadioButton as Radio, RadioButtonGroup } from 'material-ui';
+import { Field, mapProps } from 'react-formwork';
 
 export { Form } from 'react-formwork';
+
+export function Components(hoc) {
+    const composedComponents = {
+        TextInput, Checkbox, Switch, Select, Option, RadioGroup, Radio
+    };
+    if (hoc) {
+        return Object.keys(composedComponents).reduce((acc, propName) => {
+            return {
+                ...acc,
+                [propName]: hoc(composedComponents[propName])
+            };
+        }, {});
+    }
+    return composedComponents;
+}
 
 const TextInput = Field(TextField, {
     hintText: props => props.placeholder,
@@ -76,7 +89,7 @@ const RadioGroup = Field(RadioButtonGroup, {
                     const childProps = child.props;
                     const allChildProps = { style, iconStyle, ...childProps }
                     return (
-                        <RadioButton {...allChildProps} />
+                        <Radio {...allChildProps} />
                     );
                 }
             );
@@ -87,25 +100,9 @@ const RadioGroup = Field(RadioButtonGroup, {
                 const label = item.label || item.value;
                 const allChildProps = { value, label, style, iconStyle }
                 return (
-                    <RadioButton {...allChildProps} />
+                    <Radio {...allChildProps} />
                 );
             }
         );
     }
 });
-
-export function Components(hoc) {
-    const composedComponents = {
-        TextInput, Checkbox, Switch, Select, Option, RadioGroup
-    };
-    if (hoc) {
-        return Object.keys(composedComponents).reduce((acc, propName) => {
-            return {
-                ...acc,
-                [propName]: hoc(composedComponents[propName])
-            };
-        }, {});
-    }
-    return composedComponents;
-}
-export { default as Radio } from './RadioButton';

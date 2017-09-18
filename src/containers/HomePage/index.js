@@ -1,9 +1,11 @@
 import React, { Component } from 'react';
-import { Form, TextInput, Select, Option, Checkbox, RadioGroup, Radio, Switch } from 'components';
-
+import { Form, RadioGroup, Radio, Components } from 'components';
+import { Conditional } from 'react-formwork';
 
 class HomePage extends Component {
+
     render() {
+        const { TextInput, Checkbox, Switch, Select, Option, RadioGroup } = Components(Conditional);
         const items = [
             {
                 value: 'phone',

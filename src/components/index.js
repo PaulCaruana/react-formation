@@ -1,12 +1,12 @@
 import React, { Component } from 'react';
-import { TextField, Toggle, Checkbox as muiCheckbox, MenuItem, SelectField, RadioButton as Radio, RadioButtonGroup } from 'material-ui';
+import { TextField, Toggle as muiToggle, Checkbox as muiCheckbox, MenuItem, SelectField, RadioButton as Radio, RadioButtonGroup } from 'material-ui';
 import { Field, mapProps } from 'react-formwork';
 
 export { Form } from 'react-formwork';
 
 export function Components(hoc) {
     const composedComponents = {
-        TextInput, Checkbox, Switch, Select, Option, RadioGroup, Radio
+        TextInput, Checkbox, Switch, Toggle, Select, Option, RadioGroup, Radio
     };
     if (hoc) {
         return Object.keys(composedComponents).reduce((acc, propName) => {
@@ -31,7 +31,9 @@ const Checkbox = Field(muiCheckbox, {
     checked: props => props.value || false
 });
 
-const Switch = Field(Toggle, {
+const Toggle = Field(muiToggle);
+
+const Switch = Field(muiToggle, {
     labelStyle: props => ({ width: 'auto', marginRight: 16 }),
     style: props => ({ marginTop: 16 }),
     onToggle: props => (event, checked) => props.onChange(event, null, checked),

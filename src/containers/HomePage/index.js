@@ -3,9 +3,8 @@ import { Form, Components } from 'components';
 import { Conditional } from 'react-formwork';
 
 class HomePage extends Component {
-
     render() {
-        const { TextInput, Checkbox, Switch, Select, Option, RadioGroup, Radio } = Components(Conditional);
+        const { TextInput, Checkbox, Switch, Select, Toggle, Option, RadioGroup, Radio } = Components(Conditional);
         const items = [
             {
                 value: 'phone',
@@ -23,6 +22,14 @@ class HomePage extends Component {
         };
         return (
             <Form name="home">
+                <Toggle
+                    name="postalAddress2"
+                    label="Is your postal different than address as well?"
+                    labelStyle={{ width: 'auto', marginRight: 16 }}
+                    onToggle={props => (event, checked) => {
+                        props.onChange(event, null, checked);
+                    }}
+                />
                 <TextInput
                     name="suburb"
                     placeholder="Suburb"

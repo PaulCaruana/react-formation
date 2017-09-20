@@ -4,7 +4,7 @@ import FieldController from './fieldController';
 import SimpleList from './SimpleList';
 import mapProps from './mapProps';
 
-export default (RawComponent, propertyMapper) => class extends Component {
+export default (BaseComponent, propertyMapper = null) => class extends Component {
 
     static contextTypes = {
         reset: PropTypes.func.isRequired,
@@ -21,20 +21,33 @@ export default (RawComponent, propertyMapper) => class extends Component {
     };
 /*
 
-    composedComponentProps(props) {
-        const componentProps = {};
-        const rawComponent = RawComponent.DecoratedComponent || RawComponent;
-        const rawComponentPropNames = Object.keys(rawComponent.propTypes) || [];
-        const componentPropNames = rawComponentPropNames.concat(propNames);
-        Object.keys(props).forEach(name => {
-            if (componentPropNames.indexOf(name) > -1) {
-                componentProps[name] = props[name];
-            }
-        });
-        return componentProps;
+    static childContextTypes = {
+        namefn: PropTypes.func,
     }
 
+    getChildContext() {
+        return {
+            namefn: () => { return "paul"; }
+        };
+    }
 */
+
+    /*
+
+        composedComponentProps(props) {
+            const componentProps = {};
+            const BaseComponent = BaseComponent.DecoratedComponent || BaseComponent;
+            const BaseComponentPropNames = Object.keys(BaseComponent.propTypes) || [];
+            const componentPropNames = BaseComponentPropNames.concat(propNames);
+            Object.keys(props).forEach(name => {
+                if (componentPropNames.indexOf(name) > -1) {
+                    componentProps[name] = props[name];
+                }
+            });
+            return componentProps;
+        }
+
+    */
 
     componentWillMount() {
         this.field = FieldController(this.props.name, this.props, this);
@@ -52,6 +65,10 @@ export default (RawComponent, propertyMapper) => class extends Component {
         this.context.removeChild(this.field);
     }
 
+    onToggle(event, value) {
+        this.onChange(event, null, value);
+    }
+
     onChange(event, index, value) {
         const fieldValue = (value !== undefined) ? value : event.target.value
         this.context.update(this.props.name, fieldValue);
@@ -64,18 +81,26 @@ export default (RawComponent, propertyMapper) => class extends Component {
     }
 
     render() {
-        const rawProps = this.props;
-        const props = {
-            ...rawProps,
+        const baseProps = this.props;
+        const fieldProps = {
             value: this.context.values[this.props.name] || '',
             onChange: this.onChange.bind(this),
             onBlur: this.onBlur.bind(this),
-            errorText: SimpleList(this.field.getVisibleErrors())
+            errorText: SimpleList(this.field.getVisibleErrors()),
         };
-        const componentProps = mapProps(props, propertyMapper)(RawComponent);
+        let props;
+        let mappedProps;
+        if (propertyMapper) {
+            props = { ...baseProps, ...fieldProps };
+            mappedProps = propertyMapper;
+        } else {
+            props = fieldProps;
+            mappedProps = baseProps;
+        }
+        const baseComponentProps = mapProps(props, mappedProps)(BaseComponent);
         return (
             <div>
-                <RawComponent {...componentProps} />
+                <BaseComponent {...baseComponentProps} />
             </div>
         );
     }

@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import Form, { TextInput, Checkbox, Switch, Select, RadioGroup, Radio } from 'components/index2';
+import Form, { TextInput, Checkbox, Switch, Select, RadioGroup, Radio } from 'components/index';
 
 import { Conditional } from 'react-formwork';
 

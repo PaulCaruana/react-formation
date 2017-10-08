@@ -15,7 +15,7 @@ export function Components(hoc) {
                 [propName]: hoc(composedComponents[propName])
             };
         }, {});
-    }
+    } 
     return composedComponents;
 }
 

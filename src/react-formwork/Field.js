@@ -62,7 +62,7 @@ export default (BaseComponent, propertyMapper = null) => class extends Component
     }
 
     componentWillUnmount() {
-        this.context.removeChild(this.field);
+        //this.context.removeChild(this.field);
     }
 
     onToggle(event, value) {
@@ -70,7 +70,7 @@ export default (BaseComponent, propertyMapper = null) => class extends Component
     }
 
     onChange(event, index, value) {
-        const fieldValue = (value !== undefined) ? value : event.target.value
+        const fieldValue = (value !== undefined) ? value : event.target.value;
         this.context.update(this.props.name, fieldValue);
         this.field.onChange(fieldValue);
     }

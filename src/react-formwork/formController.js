@@ -36,38 +36,37 @@ export default function formField(name, attrs, component) {
         findField: function (fieldName) {
             var form = this;
             while (form.$form != null) {
-                form = form.$form
+                form = form.$form;
             }
-            ;
         },
         get $valid() {
-            return !this.$invalid
+            return !this.$invalid;
         },
         get $invalid() {
             return this.$children.find(child => {
                 return child.$invalid
-            })
+            });
         },
         get $pristine() {
-            return !this.$dirty
+            return !this.$dirty;
         },
         get $dirty() {
             return this.$children.find(child => {
-                return child.$dirty
-            })
+                return child.$dirty;
+            });
         },
         get $untouched() {
-            return !this.$untouched
+            return !this.$untouched;
         },
         get $touched() {
             return this.$children.find(child => {
                 return child.$touched
-            })
+            });
         },
         get $pending() {
             return this.$children.find(child => {
-                return child.$pending
-            })
+                return child.$pending;
+            });
         },
         get $ready() {
             return this.$valid && !this.$pending;
@@ -80,7 +79,7 @@ export default function formField(name, attrs, component) {
             this.$submitted = false;
             this.$form = null;
             this.$children.forEach(child => {
-                child.reset()
+                child.reset();
             });
             this.redraw();
         },

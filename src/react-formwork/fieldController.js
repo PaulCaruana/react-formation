@@ -121,7 +121,7 @@ export default function Field(name, props, component) {
             this.validate(value);
             //this.redraw();
         }
-    }
+    };
     field.reset();
     return field;
 }

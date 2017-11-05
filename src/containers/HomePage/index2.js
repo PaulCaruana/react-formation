@@ -3,19 +3,47 @@ import Form, { TextInput, Checkbox, Switch, Select, RadioGroup, Radio, Button } 
 import { ComposedForm } from 'react-formwork';
 
 class HomePage extends Component {
-    constructor(page) {
-        super(page);
-        page.register(this);
+    static NAME = 'home';
+    static displayName = `paul`;
+    test() {
+        console.log("test")
     }
+    constructor(props) {
+        super(props);
+       // console.log(frm);
+        Object.defineProperty(this, 'form3', {
+            get: function() {
+                return props.parent.form();
+            }
+        });
+        Object.defineProperty(this, 'form4', {
+            get: function() {
+                return props.forms['home'];
+            }
+        });
+        this.test()
+        Object.defineProperty(this, 'form5', {
+            get: () => {
+                return props.form()
+            }
+        });
+        this.form6 = () => props.form();
+        props.xform(this)
 
-    componentDidMount() {
-       // this.setState({redraw4: true});
+        this.form = props.form;
+        this.form2 = props.parent.form2;
     }
 
     onChange(event, index, value) {
-        console.log('this', form);
         console.log('this', this.form());
+        console.log('this', this.form2);
     }
+
+
+    componentDidMount() {
+       // this.form = this.props.form();
+    }
+
 
     render() {
         const items = [
@@ -28,13 +56,13 @@ class HomePage extends Component {
                 label: 'Email'
             }
         ];
-        const form = this.page.form;
         return (
-            <Form name="home">
+            <Form name="home" >
+                <div>{this.data}</div>
                 <TextInput
                     name="suburb"
-                    placeholder="suburb"
-                    label="suburb"
+                    placeholder="Suburb"
+                    label="Suburb"
                 />
                 <RadioGroup name="salutation" required >
                     <Radio value="mr" label="Mr" />
@@ -66,7 +94,7 @@ class HomePage extends Component {
                     name="over18"
                     label="Are you over 18 years old?"
                 />
-                <Button type="submit" primary label="Submit" disabled={!form.$ready} />
+                <Button type="submit" primary label="Submit" disabled={false} />
             </Form>
         );
     }

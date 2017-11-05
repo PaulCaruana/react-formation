@@ -7,13 +7,15 @@ import * as actions from './actions';
 import assign from 'lodash.assign';
 import FormController from './formController';
 
-class Form extends Component {
+ class Form extends Component {
     constructor(props) {
         super(props);
         this.name = this.props.name;
+        this.page = this.props.page;
         this.registerChild = this.registerChild.bind(this);
         this.removeChild = this.removeChild.bind(this);
         this.submit = this.submit.bind(this);
+        this.handleSubmit = this.handleSubmit.bind(this);
     }
 
     getChildContext() {
@@ -28,6 +30,7 @@ class Form extends Component {
 
     componentWillMount() {
         this.form = FormController(this.props.name, this.props, this);
+        this.context.registerForm(this.form);
     }
 
     registerChild(child) {
@@ -35,7 +38,8 @@ class Form extends Component {
     }
 
     removeChild(child) {
-        this.form.remove(child);
+        console.log("remove")
+       // this.form.remove(child);
     }
 
     submit() {
@@ -46,10 +50,28 @@ class Form extends Component {
         }
     }
 
+    handleSubmit = (e) => {
+        e.preventDefault();
+
+        //  extract the node list from the form
+        //  it looks like an array, but lacks array methods
+        const { pet } = this.form8;
+
+        // a set of radios has value property
+        // checkout out the log for proof
+        //console.log(pet, pet.value);
+    }
+
     render() {
         return (
-            <form>
-                {this.props.children}
+            <form onSubmit={this.handleSubmit} ref={form => {
+                this.form8 = form;
+            }}>
+                {this.props.children.map((child) => {
+                    //const xChild = { ...child, disabled: 'submit' };
+                    //console.log(xChild)
+                    return child;
+                })}
             </form>
         );
     }
@@ -62,6 +84,11 @@ Form.propTypes = {
     update: PropTypes.func,
     reset: PropTypes.func,
     onSubmit: PropTypes.func
+};
+
+Form.contextTypes = {
+    form: PropTypes.object,
+    registerForm: PropTypes.func
 };
 
 Form.childContextTypes = {

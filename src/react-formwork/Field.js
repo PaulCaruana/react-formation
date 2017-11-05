@@ -62,6 +62,7 @@ export default (BaseComponent, propertyMapper = null) => class extends Component
     }
 
     componentWillUnmount() {
+        console.log("field dismount")
         //this.context.removeChild(this.field);
     }
 

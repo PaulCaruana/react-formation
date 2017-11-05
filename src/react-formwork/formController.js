@@ -1,3 +1,5 @@
+import FieldController from './fieldController';
+
 export default function formField(name, attrs, component) {
     let form = {
         name: name,
@@ -6,6 +8,8 @@ export default function formField(name, attrs, component) {
         $isField: false,
         $isForm: true,
         $children: [],
+        $page: null,
+        $emptyField: new FieldController(),
         registerChild: function (child) {
             this.$children.push(child);
             child.$form = this;
@@ -39,6 +43,14 @@ export default function formField(name, attrs, component) {
                 form = form.$form;
             }
         },
+        field: function (fieldName) {
+            const fields = this.$children.filter((child) => child.$isField);
+            if (fields.length === 0) {
+                return this.$emptyField;
+            }
+            const foundField = fields.find((field) => (field.name === fieldName));
+            return foundField || this.$emptyField;
+        },
         get $valid() {
             return !this.$invalid;
         },
@@ -64,9 +76,10 @@ export default function formField(name, attrs, component) {
             });
         },
         get $pending() {
-            return this.$children.find(child => {
+            const pending = this.$children.find(child => {
                 return child.$pending;
             });
+            return (pending != null);
         },
         get $ready() {
             return this.$valid && !this.$pending;
@@ -84,7 +97,9 @@ export default function formField(name, attrs, component) {
             this.redraw();
         },
         redraw: function () {
-            component.setState({redraw: true});
+            if (this.$page && this.$page.redraw) {
+                this.$page.redraw();
+            }
         }
     }
     return form;

@@ -2,10 +2,10 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { bindActionCreators } from 'redux';
 import { connect } from "react-redux";
-import * as actions from './actions';
+import * as actions from '../actions';
 
 import assign from 'lodash.assign';
-import FormController from './formController';
+import FormController from '../formController';
 
  class Form extends Component {
     constructor(props) {

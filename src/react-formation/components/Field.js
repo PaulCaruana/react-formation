@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import FieldController from './fieldController';
+import FieldController from '../fieldController';
 import SimpleList from './SimpleList';
-import mapProps from './mapProps';
+import mapProps from '../mapProps';
 
 export default (BaseComponent, propertyMapper = null) => class extends Component {
 

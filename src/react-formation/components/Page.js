@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import PageController from './pageController';
+import PageController from '../pageController';
 
 const Page = (ComposedComponent) => class extends Component {
 

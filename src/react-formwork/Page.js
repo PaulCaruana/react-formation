@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import PageController from './pageController';
 
-const ComposedForm = (ComposedComponent) => class extends Component {
+const Page = (ComposedComponent) => class extends Component {
 
     static childContextTypes = {
         registerForm: PropTypes.func
@@ -34,4 +34,4 @@ const ComposedForm = (ComposedComponent) => class extends Component {
 };
 
 
-export default ComposedForm;
+export default Page;

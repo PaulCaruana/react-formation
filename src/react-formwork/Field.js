@@ -19,35 +19,6 @@ export default (BaseComponent, propertyMapper = null) => class extends Component
         label: PropTypes.string,
         validate: PropTypes.arrayOf(PropTypes.string)
     };
-/*
-
-    static childContextTypes = {
-        namefn: PropTypes.func,
-    }
-
-    getChildContext() {
-        return {
-            namefn: () => { return "paul"; }
-        };
-    }
-*/
-
-    /*
-
-        composedComponentProps(props) {
-            const componentProps = {};
-            const BaseComponent = BaseComponent.DecoratedComponent || BaseComponent;
-            const BaseComponentPropNames = Object.keys(BaseComponent.propTypes) || [];
-            const componentPropNames = BaseComponentPropNames.concat(propNames);
-            Object.keys(props).forEach(name => {
-                if (componentPropNames.indexOf(name) > -1) {
-                    componentProps[name] = props[name];
-                }
-            });
-            return componentProps;
-        }
-
-    */
 
     componentWillMount() {
         this.field = FieldController(this.props.name, this.props, this);

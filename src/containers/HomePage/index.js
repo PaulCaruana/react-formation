@@ -1,20 +1,11 @@
 import React, { Component } from 'react';
-import Form, { TextInput, Checkbox, Switch, Select, RadioGroup, Radio, Button } from 'components/index';
-import { ComposedForm } from 'react-formwork';
+import { TextInput, Checkbox, Switch, Select, RadioGroup, Radio, Button } from 'components/index';
+import { Page, Form } from 'react-formwork';
 
 class HomePage extends Component {
     constructor(page) {
         super(page);
         page.register(this);
-    }
-
-    componentDidMount() {
-       // this.setState({redraw4: true});
-    }
-
-    onChange(event, index, value) {
-        console.log('this', form);
-        console.log('this', this.form());
     }
 
     render() {
@@ -47,9 +38,6 @@ class HomePage extends Component {
                     placeholder="Type your name here"
                     label="Name"
                 />
-                <button
-                    onClick={this.onChange.bind(this)}
-                    />
                 <Select required options={items} label="Contact method" name="contactMethod" />
                 <TextInput
                     name="email"
@@ -72,4 +60,4 @@ class HomePage extends Component {
     }
 }
 
-export default ComposedForm(HomePage);
+export default Page(HomePage);

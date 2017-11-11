@@ -3,4 +3,4 @@ export { default as Field } from './Field';
 export { default as SimpleList } from './SimpleList';
 export { default as Conditional } from './Conditional';
 export { default as mapProps } from './mapProps';
-export { default as ComposedForm } from './ComposedForm';
+export { default as Page } from './Page';

@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { TextInput, Checkbox, Switch, Select, RadioGroup, Radio, Button } from 'components/index';
-import { Page, Form } from 'react-formwork';
+import { Page, Form } from 'react-formation';
 
 class HomePage extends Component {
     constructor(page) {

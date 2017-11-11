@@ -1,5 +1,5 @@
 import { combineReducers } from "redux";
-import formwork from 'react-formwork/reducer';
+import formwork from 'react-formation/reducer';
 
 const rootReducer = combineReducers({
     home: formwork

@@ -1,7 +1,7 @@
 import React from 'react';
 import SelectField from 'material-ui/SelectField';
 import Option from './Option';
-import { Conditional, Field } from 'react-formwork';
+import { Conditional, Field } from 'react-formation';
 
 export default Field(SelectField, {
     hintText: props => props.placeholder,

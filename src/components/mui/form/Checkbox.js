@@ -1,5 +1,5 @@
 import Checkbox from 'material-ui/Checkbox';
-import { Field } from 'react-formwork';
+import { Field } from 'react-formation';
 
 export default Field(Checkbox, {
     label: props => props.label,

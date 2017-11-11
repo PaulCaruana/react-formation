@@ -1,6 +1,6 @@
 import React from 'react';
 import { RadioButton as Radio, RadioButtonGroup } from 'material-ui/RadioButton';
-import { Field } from 'react-formwork';
+import { Field } from 'react-formation';
 
 export default Field(RadioButtonGroup, {
     onChange: props => (event, checked) => props.onChange(event, null, checked),

@@ -1,5 +1,5 @@
 import Toggle from 'material-ui/Toggle';
-import { Field } from 'react-formwork';
+import { Field } from 'react-formation';
 
 export default Field(Toggle, {
     labelStyle: props => ({ width: 'auto', marginRight: 16 }),

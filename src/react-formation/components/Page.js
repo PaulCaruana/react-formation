@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import PageController from '../pageController';
+import PageController from './controllers/page';
 
 const Page = (ComposedComponent) => class extends Component {
 
@@ -32,6 +32,5 @@ const Page = (ComposedComponent) => class extends Component {
         return <ComposedComponent register={this.registerPage.bind(this)} />;
     }
 };
-
 
 export default Page;

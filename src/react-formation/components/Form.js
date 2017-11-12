@@ -5,7 +5,7 @@ import { connect } from "react-redux";
 import * as actions from '../actions';
 
 import assign from 'lodash.assign';
-import FormController from '../formController';
+import FormController from './controllers/form';
 
  class Form extends Component {
     constructor(props) {

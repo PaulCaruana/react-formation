@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types';
 
-import fieldValidators from './fieldValidators';
+import fieldValidators from '../validators/fieldValidators';
 import isPromise from 'is-promise';
 
 

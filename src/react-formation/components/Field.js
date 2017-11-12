@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import FieldController from '../fieldController';
+import FieldController from './controllers/field';
 import SimpleList from './SimpleList';
 import mapProps from '../mapProps';
 

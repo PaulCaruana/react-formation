@@ -1,4 +1,4 @@
-import FieldController from './fieldController';
+import FieldController from './field';
 
 export default function formField(name, attrs, component) {
     let form = {

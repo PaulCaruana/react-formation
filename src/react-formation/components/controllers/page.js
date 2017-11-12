@@ -1,4 +1,4 @@
-import FormController from './formController';
+import FormController from './form';
 
 export default function pageController(pageComponent) {
     let page = {

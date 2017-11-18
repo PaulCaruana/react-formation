@@ -15,7 +15,7 @@ import FormController from './controllers/form';
         this.registerChild = this.registerChild.bind(this);
         this.removeChild = this.removeChild.bind(this);
         this.submit = this.submit.bind(this);
-        this.handleSubmit = this.handleSubmit.bind(this);
+        this.onSubmit = this.onSubmit.bind(this);
     }
 
     getChildContext() {
@@ -50,26 +50,15 @@ import FormController from './controllers/form';
         }
     }
 
-    handleSubmit = (e) => {
+    onSubmit = (e) => {
         e.preventDefault();
-
-        //  extract the node list from the form
-        //  it looks like an array, but lacks array methods
-        const { pet } = this.form8;
-
-        // a set of radios has value property
-        // checkout out the log for proof
-        //console.log(pet, pet.value);
+        this.props.onSubmit(this.form, this.props[this.name].values);
     }
 
     render() {
         return (
-            <form onSubmit={this.handleSubmit} ref={form => {
-                this.form8 = form;
-            }}>
+            <form onSubmit={this.onSubmit} ref={element => { this.element = element; }}>
                 {this.props.children.map((child) => {
-                    //const xChild = { ...child, disabled: 'submit' };
-                    //console.log(xChild)
                     return child;
                 })}
             </form>

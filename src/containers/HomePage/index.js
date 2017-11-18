@@ -8,6 +8,10 @@ class HomePage extends Component {
         page.register(this);
     }
 
+    onSubmit(form, values) {
+        console.log("submitted", form, values);
+    }
+
     render() {
         const items = [
             {
@@ -21,11 +25,11 @@ class HomePage extends Component {
         ];
         const form = this.page.form;
         return (
-            <Form name="home">
+            <Form name="home" onSubmit={this.onSubmit}>
                 <TextInput
                     name="suburb"
-                    placeholder="suburb"
-                    label="suburb"
+                    placeholder="Suburb"
+                    label="Suburb"
                 />
                 <RadioGroup name="salutation" required >
                     <Radio value="mr" label="Mr" />
@@ -54,7 +58,7 @@ class HomePage extends Component {
                     name="over18"
                     label="Are you over 18 years old?"
                 />
-                <Button type="submit" primary label="Submit" disabled={!form.$ready} />
+                <Button type="submit" primary label="Submit" disabled={false} />
             </Form>
         );
     }

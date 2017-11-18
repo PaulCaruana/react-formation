@@ -5,7 +5,6 @@ import isPromise from 'is-promise';
 
 
 export default function Field(name, props, component) {
-    console.log('field', name)
     var field = {
         name: name,
         props: props,

@@ -1,15 +1,20 @@
 import React, { Component } from 'react';
 import { TextInput, Checkbox, Switch, Select, RadioGroup, Radio, Button } from 'components/index';
 import { Page, Form } from 'react-formation';
+import { bindActionCreators } from 'redux';
+import { connect } from "react-redux";
+import * as actions from './actions';
+
 
 class HomePage extends Component {
     constructor(page) {
         super(page);
         page.register(this);
+        this.onSubmit = this.onSubmit.bind(this);
     }
 
     onSubmit(form, values) {
-        console.log("submitted", form, values);
+        this.props.actions.create('response', values);
     }
 
     render() {
@@ -25,7 +30,7 @@ class HomePage extends Component {
         ];
         const form = this.page.form;
         return (
-            <Form name="home" onSubmit={this.onSubmit}>
+            <Form name={this.props.formName} onSubmit={this.onSubmit}>
                 <TextInput
                     name="suburb"
                     placeholder="Suburb"
@@ -64,4 +69,16 @@ class HomePage extends Component {
     }
 }
 
-export default Page(HomePage);
+function mapStateToProps(state, ownProps) {
+    return {
+        [ownProps.name]: state[ownProps.name]
+    };
+}
+
+function mapDispatchToProps(dispatch) {
+    return {
+        actions: bindActionCreators(actions, dispatch)
+    };
+}
+
+export default Page(connect(mapStateToProps, mapDispatchToProps)(HomePage), 'home');

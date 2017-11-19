@@ -77,6 +77,8 @@ Form.propTypes = {
 
 Form.contextTypes = {
     form: PropTypes.object,
+    store: PropTypes.object,
+    storeSubscription: PropTypes.object,
     registerForm: PropTypes.func
 };
 
@@ -87,7 +89,6 @@ Form.childContextTypes = {
     values: PropTypes.object,
     registerChild: PropTypes.func
 };
-
 
 function mapStateToProps(state, ownProps) {
     return {

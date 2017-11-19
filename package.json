@@ -27,6 +27,7 @@
     "react-router-dom": "^4.1.1",
     "react-tap-event-plugin": "^2.0.1",
     "recompose": "^0.24.0",
+    "reduce-reducers": "^0.1.2",
     "redux": "^3.7.0",
     "redux-actions": "^2.2.1",
     "redux-logger": "2.4.0",

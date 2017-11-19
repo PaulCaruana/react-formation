@@ -1,1 +1,1 @@
-export const CREATE = 'CRREATE';
+export const CREATE = 'CREATE';

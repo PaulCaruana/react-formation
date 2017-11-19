@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import PageController from './controllers/page';
 
-const Page = (ComposedComponent, name) => class extends Component {
+const Page = (ComposedComponent, formName) => class extends Component {
 
     static childContextTypes = {
         registerForm: PropTypes.func
@@ -29,8 +29,7 @@ const Page = (ComposedComponent, name) => class extends Component {
     }
 
     render() {
-        var formName = `${name}Form`;
-        return <ComposedComponent register={this.registerPage.bind(this)} name={name} formName={formName} />;
+        return <ComposedComponent register={this.registerPage.bind(this)} formName={formName} />;
     }
 };
 

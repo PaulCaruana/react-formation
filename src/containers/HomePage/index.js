@@ -71,7 +71,7 @@ class HomePage extends Component {
 
 function mapStateToProps(state, ownProps) {
     return {
-        ['home']: state['home']
+        [pageName]: state[pageName]
     };
 }
 
@@ -80,5 +80,13 @@ function mapDispatchToProps(dispatch) {
         actions: bindActionCreators(actions, dispatch)
     };
 }
-
-export default Page(connect(mapStateToProps, mapDispatchToProps)(HomePage), 'homeForm');
+export const pageName = 'home';
+export const formName = 'homeForm';
+/*
+export default Page({
+    form: formName
+})(connect(mapStateToProps, mapDispatchToProps)(HomePage));
+*/
+export default connect(mapStateToProps, mapDispatchToProps)(Page({
+    form: formName
+})(HomePage));

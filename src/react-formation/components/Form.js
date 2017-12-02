@@ -23,13 +23,14 @@ import FormController from './controllers/form';
             update: this.props.actions.update,
             reset: this.props.actions.reset,
             submit: this.submit,
-            values: this.props[this.name].values,
+            values: this.props.form.values,
             registerChild: this.registerChild
         };
     }
 
     componentWillMount() {
         this.form = FormController(this.props.name, this.props, this);
+        //this.setState({ form: this.form });
         this.context.registerForm(this.form);
     }
 
@@ -52,15 +53,13 @@ import FormController from './controllers/form';
 
     onSubmit = (e) => {
         e.preventDefault();
-        this.props.onSubmit(this.form, this.props[this.name].values);
+        this.props.onSubmit(this.form, this.props.form.values);
     }
 
     render() {
         return (
             <form onSubmit={this.onSubmit} ref={element => { this.element = element; }}>
-                {this.props.children.map((child) => {
-                    return child;
-                })}
+                {this.props.children}
             </form>
         );
     }
@@ -92,7 +91,7 @@ Form.childContextTypes = {
 
 function mapStateToProps(state, ownProps) {
     return {
-        [ownProps.name]: state[ownProps.name]
+        form : state[ownProps.name]
     };
 }
 

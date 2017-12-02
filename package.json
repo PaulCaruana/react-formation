@@ -7,7 +7,9 @@
   "scripts": {
     "start": "node ./node_modules/webpack-dev-server/bin/webpack-dev-server.js",
     "test": "mocha --compilers js:babel-core/register --require ./test/test_helper.js --recursive ./test",
-    "test:watch": "npm run test -- --watch"
+    "test:watch": "npm run test -- --watch",
+    "storybook": "start-storybook -p 6006",
+    "build-storybook": "build-storybook"
   },
   "author": "",
   "license": "ISC",
@@ -49,6 +51,9 @@
     "react-addons-test-utils": "^0.14.7",
     "webpack": "^1.12.12",
     "webpack-dev-server": "^1.14.0",
-    "eslint-config-rallycoding": "^3.1.0"
+    "eslint-config-rallycoding": "^3.1.0",
+    "@storybook/react": "^3.2.16",
+    "@storybook/addon-actions": "^3.2.16",
+    "@storybook/addon-links": "^3.2.16"
   }
 }

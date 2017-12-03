@@ -12,7 +12,7 @@ import injectTapEventPlugin from 'react-tap-event-plugin';
 import HomePage from './containers/HomePage';
 import reducers from './reducers';
 
-const reduxMiddleware = applyMiddleware(thunk, createLogger());
+const reduxMiddleware = applyMiddleware(thunk);
 
 injectTapEventPlugin();
 

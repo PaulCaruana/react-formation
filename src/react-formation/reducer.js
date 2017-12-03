@@ -2,7 +2,8 @@ import { handleActions } from 'redux-actions';
 import * as actions from './constants';
 
 const initialState = {
-    values: {}
+    values: {},
+    formStatus: {}
 };
 
 export default handleActions({
@@ -13,5 +14,10 @@ export default handleActions({
     },
     [actions.RESET]: (state, action) => {
         return initialState;
+    },
+    [actions.FORM_STATUS]: (state, action) => {
+        const newState = { ...state };
+        newState.formStatus = action.payload.form;
+        return newState;
     }
 }, initialState);

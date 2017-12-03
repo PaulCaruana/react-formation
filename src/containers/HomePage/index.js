@@ -63,7 +63,7 @@ class HomePage extends Component {
                     name="over18"
                     label="Are you over 18 years old?"
                 />
-                <Button type="submit" primary label="Submit" disabled={false} />
+                <Button type="submit" primary label="Submit" disabled={form.$ready} />
             </Form>
         );
     }

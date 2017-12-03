@@ -1,6 +1,7 @@
 import PropTypes from 'prop-types';
 
 import fieldValidators from '../validators/fieldValidators';
+import shallowEqual from 'react-pure-render/shallowEqual';
 import isPromise from 'is-promise';
 
 
@@ -9,43 +10,70 @@ export default function Field(name, props, component) {
         name: name,
         props: props,
         component: component,
+        formStatus: (component)? component.context.formStatus : null,
         $errors: {},
         $form: null,
         $isField: true,
         $isForm: false,
         $validators: fieldValidators,
-        updated: function () {
-            this.$dirty = true;
-            this.$pristine = false;
+        setPending: function(pending) {
+            if (pending === this.$pending) {
+                return;
+            }
+            this.$pending = pending;
+            this.setFormStatus();
         },
-        touched: function () {
-            this.$touched = true;
-            this.$untouced = false;
+        setTouched: function(touched) {
+            if (touched === this.$touched) {
+                return;
+            }
+            this.$touched = touched;
+            this.$untouched = !touched;
+            this.setFormStatus();
+        },
+        setDirty: function(dirty) {
+            if (dirty === this.$dirty) {
+                return;
+            }
+            this.$dirty = dirty;
+            this.$pristine = !dirty;
+            this.setFormStatus();
         },
         addError: function (type, message) {
+            if (this.$errors[type] === message) {
+                return;
+            }
             this.$errors[type] = message;
             this.$valid = false;
             this.$invalid = true;
+            this.setFormStatus();
         },
         clearError: function (type) {
-            if (this.$errors[type]) {
-                delete this.$errors[type];
+            if (!this.$errors[type]) {
+                return;
             }
+            delete this.$errors[type];
             this.$valid = this.isValid();
             this.$invalid = !this.$valid;
+            this.setFormStatus();
+        },
+        setFormStatus: function () {
+            if (component) {
+                component.context.formStatus(this.$form);
+            }
         },
         isValid: function () {
-            return (Object.keys(this.$errors).length == 0);
+            return (Object.keys(this.$errors).length === 0);
         },
         validate: function (value) {
-            this.$pending = true;
             const promises = [];
             var validatorTypes = this.getValidators(props);
             for (var i = 0; i < validatorTypes.length; i++) {
                 var type = validatorTypes[i];
                 var validateResult = this.$validators[type].validate(value, props, type, this);
                 if (isPromise(validateResult)) {
-                     validateResult.then( result => {
+                    this.setPending(true);
+                    validateResult.then(result => {
                         this.addClearError(type, result);
                     }).catch(result => {
                         this.addClearError(type, result);
@@ -56,11 +84,9 @@ export default function Field(name, props, component) {
                 promises.push(validateResult);
             }
             Promise.all(promises).then(() => {
-                this.$pending = false;
-                this.redraw();
+                this.setPending(false);
             }).catch(() => {
-                this.$pending = false;
-                this.redraw();
+                this.setPending(false);
             });
         },
         addClearError: function(type, result) {
@@ -110,24 +136,19 @@ export default function Field(name, props, component) {
         reset: function () {
             this.$valid = true;
             this.$invalid = false;
-            this.$dirty = false;
-            this.$pristine = true;
-            this.$touched = false;
-            this.$untouced = true;
-            this.$pending = false;
+            this.setDirty(false);
+            this.setTouched(false);
+            this.setPending(false);
             this.$form = {};
             this.$errors = {};
-            this.redraw();
         },
         onChange: function (value) {
-            this.updated();
+            this.setDirty(true);
             this.validate(value);
-            this.redraw();
         },
         onBlur: function (value) {
-            this.touched();
-            this.validate(value);
-            //this.redraw();
+            this.setTouched(true);
+            //this.validate(value);
         }
     };
     field.reset();

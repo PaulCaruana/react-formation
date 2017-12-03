@@ -22,6 +22,7 @@ import FormController from './controllers/form';
         return {
             update: this.props.actions.update,
             reset: this.props.actions.reset,
+            formStatus: this.props.actions.formStatus,
             submit: this.submit,
             values: this.props.form.values,
             registerChild: this.registerChild
@@ -84,6 +85,7 @@ Form.contextTypes = {
 Form.childContextTypes = {
     update: PropTypes.func,
     reset: PropTypes.func,
+    formStatus: PropTypes.func,
     submit: PropTypes.func,
     values: PropTypes.object,
     registerChild: PropTypes.func

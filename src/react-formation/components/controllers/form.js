@@ -9,7 +9,7 @@ export default function formField(name, attrs, component) {
         $isForm: true,
         $children: [],
         $page: null,
-        $emptyField: new FieldController(),
+        $emptyField: new FieldController('_empty'),
         registerChild: function (child) {
             this.$children.push(child);
             child.$form = this;

@@ -9,6 +9,7 @@ export default (BaseComponent, propertyMapper = null) => class extends Component
     static contextTypes = {
         reset: PropTypes.func.isRequired,
         update: PropTypes.func.isRequired,
+        formStatus: PropTypes.func.isRequired,
         values: PropTypes.object.isRequired,
         registerChild: PropTypes.func.isRequired
     };
@@ -35,6 +36,10 @@ export default (BaseComponent, propertyMapper = null) => class extends Component
     componentWillUnmount() {
         console.log("field dismount")
         //this.context.removeChild(this.field);
+    }
+    shouldComponentUpdate (newProps, newState) {
+        console.log(newProps, newState)
+        return true;
     }
 
     onToggle(event, value) {

@@ -7,22 +7,20 @@ export default function pageController(pageComponent) {
         $forms: [],
         $pageComponent: pageComponent,
         $emptyForm: new FormController(),
-        get form() {
-            try {
-                if (this.$forms.length === 0) {
-                    throw true;
-                }
-            }  catch (e) {
-                return false;
+        getForm: function (index) {
+            if (this.$forms.length === 0) {
+                return this.$emptyForm;
             }
-            return this.$forms[0];
+            return this.$forms[index];
         },
-        getForm: function (index) { return this.$forms[index]; },
         setForm: function (form) {
             if (!this.findForm(form.name)) {
                 form.$page = this;
                 this.$forms.push(form);
             }
+        },
+        get form() {
+            return this.getForm(0);
         },
         findForm: function (name) {
             return this.$forms.find((form) => form.name === name);
@@ -33,6 +31,8 @@ export default function pageController(pageComponent) {
             }
         }
     };
-    pageComponent.page = page;
+    if (pageComponent) {
+        pageComponent.page = page;
+    }
     return page;
 }

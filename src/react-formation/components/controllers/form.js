@@ -85,6 +85,9 @@ export default function formField(name, attrs, component) {
         get $ready() {
             return this.$valid && !this.$pending;
         },
+        get $incomplete() {
+            return !this.$ready;
+        },
         submitted: function () {
             this.$submitted = true;
             this.redraw();

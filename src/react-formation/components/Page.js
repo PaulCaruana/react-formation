@@ -12,7 +12,7 @@ const Page = (config) => {
         constructor(props) {
             super(props);
             this.registerForm = this.registerForm.bind(this);
-            this.page = {};
+            this.page = new PageController();
         }
 
         getChildContext() {
@@ -35,9 +35,15 @@ const Page = (config) => {
             console.log("proc", pageComponent);
         }
 
+        get form() {
+
+        }
+
         render() {
-            //const props = Object.assign({}, { ref: this.proc.bind(this) }, this.props);
-            return <ComposedComponent {...this.props} ref={event => this.proc.bind(this)(event)} register={this.registerPage.bind(this)} formName={config.form} />;
+            return <ComposedComponent {...this.props}
+                ref={event => this.proc.bind(this)(event)}
+                register={this.registerPage.bind(this)}
+                formName={config.form} />;
         }
     };
 };

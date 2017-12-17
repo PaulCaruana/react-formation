@@ -29,6 +29,7 @@ class HomePage extends Component {
             }
         ];
         const form = this.page.form;
+        //console.log('Page Rendered')
         return (
             <Form name={this.props.formName} onSubmit={this.onSubmit}>
                 <TextInput
@@ -63,7 +64,7 @@ class HomePage extends Component {
                     name="over18"
                     label="Are you over 18 years old?"
                 />
-                <Button type="submit" primary label="Submit" disabled={form.$ready} />
+                <Button type="submit" primary label="Submit" disabled={form.field('name').$invalid} />
             </Form>
         );
     }

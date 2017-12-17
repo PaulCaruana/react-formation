@@ -22,6 +22,7 @@ const Page = (config) => {
         }
 
         registerPage(pageComponent) {
+            console.log("reg", pageComponent);
             this.page = new PageController(pageComponent);
         }
 
@@ -31,12 +32,12 @@ const Page = (config) => {
 
         proc(pageComponent) {
            // this.page = new PageController(pageComponent);
-            console.log(pageComponent);
+            console.log("proc", pageComponent);
         }
 
         render() {
-            const props = Object.assign({}, { ref: this.proc.bind(this) }, this.props);
-            return <ComposedComponent {...this.props} onLoad={event => this.proc.bind(this)(event)} register={this.registerPage.bind(this)} formName={config.form} />;
+            //const props = Object.assign({}, { ref: this.proc.bind(this) }, this.props);
+            return <ComposedComponent {...this.props} ref={event => this.proc.bind(this)(event)} register={this.registerPage.bind(this)} formName={config.form} />;
         }
     };
 };

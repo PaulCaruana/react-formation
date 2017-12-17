@@ -33,16 +33,7 @@ export default (BaseComponent, propertyMapper = null) => class extends Component
     }
 
     shouldComponentUpdate (newProps, newState) {
-        if (this.field.$renderPending) {
-            return true;
-        }
-        if (!equals(this.props, newProps)) {
-            return true;
-        }
-        if (!equals(this.state, newState)) {
-            return true;
-        }
-        return false;
+        return (this.field.$renderPending || !equals(this.props, newProps) || !equals(this.state, newState));
     }
 
     onToggle(event, value) {

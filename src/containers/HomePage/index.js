@@ -82,11 +82,7 @@ function mapDispatchToProps(dispatch) {
 }
 export const pageName = 'home';
 export const formName = 'homeForm';
-/*
-export default Page({
-    form: formName
-})(connect(mapStateToProps, mapDispatchToProps)(HomePage));
-*/
+
 export default connect(mapStateToProps, mapDispatchToProps)(Page({
     form: formName
 })(HomePage));

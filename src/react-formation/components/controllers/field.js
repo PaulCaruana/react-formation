@@ -57,11 +57,6 @@ export default function Field(name, props, component) {
             this.$invalid = !this.$valid;
             this.redraw();
         },
-        setFormStatus: function () {
-            if (component) {
-                component.context.formStatus(this.$form);
-            }
-        },
         isValid: function () {
             return (Object.keys(this.$errors).length === 0);
         },

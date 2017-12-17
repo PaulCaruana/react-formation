@@ -98,8 +98,8 @@ export default function formField(name, attrs, component) {
             this.redraw();
         },
         redraw: function () {
+            this.$renderPending = true;
             if (this.$page && this.$page.redraw) {
-                this.$renderPending = true;
                 this.$page.redraw();
             }
         }

@@ -31,7 +31,6 @@ import FormController from './controllers/form';
 
     componentWillMount() {
         this.form = FormController(this.props.name, this.props, this);
-        //this.setState({ form: this.form });
         this.context.registerForm(this.form);
     }
 

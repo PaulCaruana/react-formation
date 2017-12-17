@@ -3,6 +3,8 @@ import PropTypes from 'prop-types';
 import FieldController from './controllers/field';
 import SimpleList from './SimpleList';
 import mapProps from '../mapProps';
+import equals from 'fast-deep-equal';
+
 
 export default (BaseComponent, propertyMapper = null) => class extends Component {
 
@@ -27,19 +29,20 @@ export default (BaseComponent, propertyMapper = null) => class extends Component
         if (this.props.defaultValue && this.context.values[this.props.name] === undefined) {
             this.context.update(this.props.name, this.props.defaultValue);
         }
-    }
-
-    componentDidMount() {
         this.field.validate(this.context.values[this.props.name]);
     }
 
-    componentWillUnmount() {
-        console.log("field dismount")
-        //this.context.removeChild(this.field);
-    }
     shouldComponentUpdate (newProps, newState) {
-        console.log(newProps, newState)
-        return true;
+        if (this.field.$renderPending) {
+            return true;
+        }
+        if (!equals(this.props, newProps)) {
+            return true;
+        }
+        if (!equals(this.state, newState)) {
+            return true;
+        }
+        return false;
     }
 
     onToggle(event, value) {
@@ -75,6 +78,7 @@ export default (BaseComponent, propertyMapper = null) => class extends Component
             mappedProps = baseProps;
         }
         const baseComponentProps = mapProps(props, mappedProps)(BaseComponent);
+        this.field.$renderPending = false;
         return (
             <div>
                 <BaseComponent {...baseComponentProps} />

@@ -8,8 +8,12 @@ export default function pageController(pageComponent) {
         $pageComponent: pageComponent,
         $emptyForm: new FormController(),
         get form() {
-            if (this.$forms.length === 0) {
-                return this.$emptyForm;
+            try {
+                if (this.$forms.length === 0) {
+                    throw true;
+                }
+            }  catch (e) {
+                return false;
             }
             return this.$forms[0];
         },
@@ -25,7 +29,7 @@ export default function pageController(pageComponent) {
         },
         redraw: function () {
             if (this.$pageComponent) {
-                this.$pageComponent.setState({ redraw: true });
+                this.$pageComponent.forceUpdate();
             }
         }
     };

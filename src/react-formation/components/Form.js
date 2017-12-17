@@ -35,7 +35,7 @@ import FormController from './controllers/form';
         this.context.registerForm(this.form);
     }
 
-    registerChild(child) {
+     registerChild(child) {
         return this.form.registerChild(child);
     }
 
@@ -58,6 +58,7 @@ import FormController from './controllers/form';
     }
 
     render() {
+        this.form.$renderPending = false;
         return (
             <form onSubmit={this.onSubmit} ref={element => { this.element = element; }}>
                 {this.props.children}

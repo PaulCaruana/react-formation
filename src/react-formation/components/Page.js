@@ -22,7 +22,6 @@ const Page = (config) => {
         }
 
         registerPage(pageComponent) {
-           // console.log(pageComponent);
             this.page = new PageController(pageComponent);
         }
 

@@ -21,7 +21,7 @@ export default function Field(name, props, component) {
                 return;
             }
             this.$pending = pending;
-            this.setFormStatus();
+            this.redraw();
         },
         setTouched: function(touched) {
             if (touched === this.$touched) {
@@ -29,7 +29,7 @@ export default function Field(name, props, component) {
             }
             this.$touched = touched;
             this.$untouched = !touched;
-            this.setFormStatus();
+            this.redraw();
         },
         setDirty: function(dirty) {
             if (dirty === this.$dirty) {
@@ -37,7 +37,7 @@ export default function Field(name, props, component) {
             }
             this.$dirty = dirty;
             this.$pristine = !dirty;
-            this.setFormStatus();
+            this.redraw();
         },
         addError: function (type, message) {
             if (this.$errors[type] === message) {
@@ -46,7 +46,7 @@ export default function Field(name, props, component) {
             this.$errors[type] = message;
             this.$valid = false;
             this.$invalid = true;
-            this.setFormStatus();
+            this.redraw();
         },
         clearError: function (type) {
             if (!this.$errors[type]) {
@@ -55,7 +55,7 @@ export default function Field(name, props, component) {
             delete this.$errors[type];
             this.$valid = this.isValid();
             this.$invalid = !this.$valid;
-            this.setFormStatus();
+            this.redraw();
         },
         setFormStatus: function () {
             if (component) {
@@ -129,6 +129,7 @@ export default function Field(name, props, component) {
             });
         },
         redraw: function() {
+            this.$renderPending = true;
             if (this.$form && this.$form.redraw) {
                 this.$form.redraw();
             }
@@ -141,9 +142,11 @@ export default function Field(name, props, component) {
             this.setPending(false);
             this.$form = {};
             this.$errors = {};
+            this.$renderPending = false;
         },
         onChange: function (value) {
             this.setDirty(true);
+            this.$renderPending = true;
             this.validate(value);
         },
         onBlur: function (value) {

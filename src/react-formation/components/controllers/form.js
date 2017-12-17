@@ -9,6 +9,7 @@ export default function formField(name, attrs, component) {
         $isForm: true,
         $children: [],
         $page: null,
+        $renderPending: false,
         $emptyField: new FieldController('_empty'),
         registerChild: function (child) {
             this.$children.push(child);
@@ -98,6 +99,7 @@ export default function formField(name, attrs, component) {
         },
         redraw: function () {
             if (this.$page && this.$page.redraw) {
+                this.$renderPending = true;
                 this.$page.redraw();
             }
         }

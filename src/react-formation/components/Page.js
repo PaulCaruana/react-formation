@@ -21,28 +21,19 @@ const Page = (config) => {
             };
         }
 
-        registerPage(pageComponent) {
-            console.log("reg", pageComponent);
-            this.page = new PageController(pageComponent);
-        }
-
         registerForm(form) {
-            this.page.setForm(form);
-        }
-
-        proc(pageComponent) {
-           // this.page = new PageController(pageComponent);
-            console.log("proc", pageComponent);
+            this.page.registerForm(form);
         }
 
         get form() {
-
+            return this.page.form;
         }
 
         render() {
-            return <ComposedComponent {...this.props}
-                ref={event => this.proc.bind(this)(event)}
-                register={this.registerPage.bind(this)}
+            return <ComposedComponent
+                {...this.props}
+                page={this.page}
+                ref={instance => this.page.registerComponent(instance)}
                 formName={config.form} />;
         }
     };

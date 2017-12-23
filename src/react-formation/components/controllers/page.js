@@ -1,11 +1,11 @@
 import FormController from './form';
 
-export default function pageController(pageComponent) {
+export default function pageController() {
     let page = {
         name: name,
         type: 'page',
         $forms: [],
-        $pageComponent: pageComponent,
+        $pageComponent: null,
         $emptyForm: new FormController(),
         getForm: function (index) {
             if (this.$forms.length === 0) {
@@ -13,7 +13,7 @@ export default function pageController(pageComponent) {
             }
             return this.$forms[index];
         },
-        setForm: function (form) {
+        registerForm: function (form) {
             if (!this.findForm(form.name)) {
                 form.$page = this;
                 this.$forms.push(form);
@@ -25,14 +25,15 @@ export default function pageController(pageComponent) {
         findForm: function (name) {
             return this.$forms.find((form) => form.name === name);
         },
+        registerComponent(pageComponent) {
+            this.$pageComponent = pageComponent;
+            this.redraw();
+        },
         redraw: function () {
             if (this.$pageComponent) {
                 this.$pageComponent.forceUpdate();
             }
         }
     };
-    if (pageComponent) {
-        pageComponent.page = page;
-    }
     return page;
 }

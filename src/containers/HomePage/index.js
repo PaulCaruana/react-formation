@@ -7,9 +7,8 @@ import * as actions from './actions';
 
 
 class HomePage extends Component {
-    constructor(page) {
-        super(page);
-        page.register(this);
+    constructor(props) {
+        super(props);
         this.onSubmit = this.onSubmit.bind(this);
     }
 
@@ -28,8 +27,7 @@ class HomePage extends Component {
                 label: 'Email'
             }
         ];
-        const form = this.page.form;
-        //console.log('Page Rendered')
+        const form = this.props.page.form;
         return (
             <Form name={this.props.formName} onSubmit={this.onSubmit}>
                 <TextInput

@@ -3,6 +3,7 @@ import { RadioButton as Radio, RadioButtonGroup } from 'material-ui/RadioButton'
 import { Field } from 'react-formation';
 
 export default Field(RadioButtonGroup, {
+    type: "radio",
     onChange: props => (event, checked) => props.onChange(event, null, checked),
     valueSelected: props => props.value,
     style: props => ({ display: 'flex', marginTop: 16 }),

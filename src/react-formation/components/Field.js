@@ -25,6 +25,7 @@ export default (BaseComponent, propertyMapper = null) => class extends Component
     };
 
     componentWillMount() {
+        this.type = (propertyMapper)? propertyMapper.type : null;
         this.field = FieldController(this.props.name, this.props, this);
         this.form = this.context.registerChild(this.field);
         if (this.props.defaultValue && this.context.values[this.props.name] === undefined) {
@@ -69,6 +70,7 @@ export default (BaseComponent, propertyMapper = null) => class extends Component
             props = fieldProps;
             mappedProps = baseProps;
         }
+        this.type = mappedProps.type;
         const baseComponentProps = mapProps(props, mappedProps)(BaseComponent);
         this.field.$renderPending = false;
         return (

@@ -4,6 +4,7 @@ import Option from './Option';
 import { Conditional, Field } from 'react-formation';
 
 export default Field(SelectField, {
+    type: "select",
     hintText: props => props.placeholder,
     floatingLabelText: props => props.label,
     children: props => {

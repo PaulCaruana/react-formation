@@ -4,7 +4,7 @@ import { Page, Form } from 'react-formation';
 import { bindActionCreators } from 'redux';
 import { connect } from "react-redux";
 import * as actions from './actions';
-
+import * as customValidators from '../../common/validators';
 
 class HomePage extends Component {
     constructor(props) {
@@ -62,6 +62,15 @@ class HomePage extends Component {
                     name="over18"
                     label="Are you over 18 years old?"
                 />
+                <TextInput
+                    name="age"
+                    required
+                    integer
+                    minValue="18"
+                    maxValue="125"
+                    placeholder="Type your age here"
+                    label="Age"
+                    />
                 <Button type="submit" primary label="Submit" disabled={form.field('name').$invalid} />
             </Form>
         );
@@ -83,5 +92,6 @@ export const pageName = 'home';
 export const formName = 'homeForm';
 
 export default connect(mapStateToProps, mapDispatchToProps)(Page({
-    form: formName
+    form: formName,
+    validators: customValidators
 })(HomePage));

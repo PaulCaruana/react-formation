@@ -6,16 +6,21 @@ import isPromise from 'is-promise';
 
 
 export default function Field(name, props, component) {
+    let validators = null;
+    if (name !== '_empty') {
+        const config = component.context.config;
+        const customFieldValidators = config.validators || {};
+        validators = Object.assign(customFieldValidators, fieldValidators);
+    }
     var field = {
         name: name,
         props: props,
         component: component,
-        formStatus: (component)? component.context.formStatus : null,
         $errors: {},
         $form: null,
         $isField: true,
         $isForm: false,
-        $validators: fieldValidators,
+        $validators: validators,
         setPending: function(pending) {
             if (pending === this.$pending) {
                 return;
@@ -65,7 +70,7 @@ export default function Field(name, props, component) {
             var validatorTypes = this.getValidators(props);
             for (var i = 0; i < validatorTypes.length; i++) {
                 var type = validatorTypes[i];
-                var validateResult = this.$validators[type].validate(value, props, type, this);
+                var validateResult = this.$validators[type](value, props, type, this);
                 if (isPromise(validateResult)) {
                     this.setPending(true);
                     validateResult.then(result => {
@@ -120,7 +125,7 @@ export default function Field(name, props, component) {
         getValidators: function (props) {
             var attrNames = Object.keys(props);
             return attrNames.filter(attrName => {
-                return (fieldValidators[attrName])
+                return (this.$validators[attrName])
             });
         },
         redraw: function() {

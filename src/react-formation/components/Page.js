@@ -6,19 +6,18 @@ const Page = (config) => {
     return (ComposedComponent) => class extends Component {
 
         static childContextTypes = {
+            config: PropTypes.object,
             registerForm: PropTypes.func
         };
 
         constructor(props) {
             super(props);
-            this.registerForm = this.registerForm.bind(this);
             this.page = new PageController();
         }
 
         getChildContext() {
-            return {
-                registerForm: this.registerForm
-            };
+            const registerForm = this.registerForm.bind(this);
+            return { config, registerForm };
         }
 
         registerForm(form) {
@@ -30,11 +29,12 @@ const Page = (config) => {
         }
 
         render() {
-            return <ComposedComponent
+            return (<ComposedComponent
                 {...this.props}
                 page={this.page}
                 ref={instance => this.page.registerComponent(instance)}
-                formName={config.form} />;
+                formName={config.form}
+            />);
         }
     };
 };

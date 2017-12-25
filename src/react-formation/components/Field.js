@@ -13,7 +13,8 @@ export default (BaseComponent, propertyMapper = null) => class extends Component
         update: PropTypes.func.isRequired,
         formStatus: PropTypes.func.isRequired,
         values: PropTypes.object.isRequired,
-        registerChild: PropTypes.func.isRequired
+        registerChild: PropTypes.func.isRequired,
+        config: PropTypes.object
     };
 
     static propTypes = {

@@ -34,7 +34,7 @@ import FormController from './controllers/form';
         this.context.registerForm(this.form);
     }
 
-     registerChild(child) {
+    registerChild(child) {
         return this.form.registerChild(child);
     }
 

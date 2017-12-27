@@ -7,10 +7,11 @@ import isPromise from 'is-promise';
 
 export default function Field(name, props, component) {
     let validators = null;
+    let validatorMessages = null;
     if (name !== '_empty') {
         const config = component.context.config;
-        const customFieldValidators = config.validators || {};
-        validators = Object.assign(customFieldValidators, fieldValidators);
+        validators = config.validators;
+        validatorMessages = config.messages;
     }
     var field = {
         name: name,
@@ -21,6 +22,8 @@ export default function Field(name, props, component) {
         $isField: true,
         $isForm: false,
         $validators: validators,
+        $validatorMessages: validatorMessages,
+        $messageTemplates: {},
         setPending: function(pending) {
             if (pending === this.$pending) {
                 return;
@@ -44,11 +47,65 @@ export default function Field(name, props, component) {
             this.$pristine = !dirty;
             this.redraw();
         },
-        addError: function (type, message) {
-            if (this.$errors[type] === message) {
+        isValid: function () {
+            return (Object.keys(this.$errors).length === 0);
+        },
+        validate: function (value) {
+            const promises = [];
+            var validatorTypes = this.getValidators(props);
+            for (var i = 0; i < validatorTypes.length; i++) {
+                var type = validatorTypes[i];
+                var validateResult = this.validateType(value, props, type);
+                promises.push(validateResult);
+            }
+            Promise.all(promises).then(() => {
+                this.setPending(false);
+            }).catch(() => {
+                this.setPending(false);
+            });
+        },
+        validateType: function(value, props, type) {
+            const validateResult = this.$validators[type](value, props, type, this);
+            let message = null;
+            if (isPromise(validateResult)) {
+                this.setPending(true);
+                validateResult.then(result => {
+                    this.clearError(type);
+                }).catch(result => {
+                    message = this.getMessageTemplates(result.message, type, props.type, props.name)
+                    this.addError(type, message);
+                });
+            } else {
+                if (validateResult.valid) {
+                    this.clearError(type);
+                } else {
+                    message = this.getMessageTemplates(validateResult.message, type, props.type, props.name)
+                    this.addError(type, message);
+                }
+            }
+            return validateResult;
+        },
+        getMessageTemplates: function(dftMessage, validatorType, type, name) {
+            if (!this.$messageTemplates[validatorType]) {
+                const messageTemplate = validatorMessages(validatorType, type, name);
+                this.$messageTemplates[validatorType]
+                    = (messageTemplate) ? eval('`' + messageTemplate + '`') : dftMessage; //eslint-disable-line
+            }
+            return this.$messageTemplates[validatorType];
+        },
+        addClearError: function(type, result) {
+            if (result.valid) {
+                this.clearError(type);
+            } else {
+                this.addError(type, result.message);
+            }
+        },
+        addError: function (validatorType, dftMessage) {
+            const message = dftMessage
+            if (this.$errors[validatorType] === message) {
                 return;
             }
-            this.$errors[type] = message;
+            this.$errors[validatorType] = message;
             this.$valid = false;
             this.$invalid = true;
             this.redraw();
@@ -61,40 +118,6 @@ export default function Field(name, props, component) {
             this.$valid = this.isValid();
             this.$invalid = !this.$valid;
             this.redraw();
-        },
-        isValid: function () {
-            return (Object.keys(this.$errors).length === 0);
-        },
-        validate: function (value) {
-            const promises = [];
-            var validatorTypes = this.getValidators(props);
-            for (var i = 0; i < validatorTypes.length; i++) {
-                var type = validatorTypes[i];
-                var validateResult = this.$validators[type](value, props, type, this);
-                if (isPromise(validateResult)) {
-                    this.setPending(true);
-                    validateResult.then(result => {
-                        this.addClearError(type, result);
-                    }).catch(result => {
-                        this.addClearError(type, result);
-                    });
-                } else {
-                    this.addClearError(type, validateResult);
-                }
-                promises.push(validateResult);
-            }
-            Promise.all(promises).then(() => {
-                this.setPending(false);
-            }).catch(() => {
-                this.setPending(false);
-            });
-        },
-        addClearError: function(type, result) {
-            if (result.valid) {
-                this.clearError(type);
-            } else {
-                this.addError(type, result.message);
-            }
         },
         showErrors: function () {
             return this.$invalid && (this.$touched || this.$form.$submitted);

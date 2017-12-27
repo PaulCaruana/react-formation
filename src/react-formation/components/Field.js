@@ -26,7 +26,9 @@ export default (BaseComponent, propertyMapper = null) => class extends Component
 
     componentWillMount() {
         this.type = (propertyMapper)? propertyMapper.type : null;
-        this.field = FieldController(this.props.name, this.props, this);
+        const { ...props } = this.props;
+        props.type = this.type;
+        this.field = FieldController(this.props.name, props, this);
         this.form = this.context.registerChild(this.field);
         if (this.props.defaultValue && this.context.values[this.props.name] === undefined) {
             this.context.update(this.props.name, this.props.defaultValue);

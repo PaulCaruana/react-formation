@@ -1,3 +1,6 @@
+const test = (params) => {
+    console.log(params)
+}
 export const minValue = (value, props, min) => {
     const val = Number(value);
     const minNum = Number(props[min]);
@@ -14,6 +17,7 @@ export const maxValue = (value, props, max) => {
         message: `${props.label} must be no more than ${maxNum}`
     };
 };
+
 export const integer = (value, props) => {
     return {
         valid: (value === undefined || value.trim() === '' || /^[+-]?\d+$/i.test(value.trim())),

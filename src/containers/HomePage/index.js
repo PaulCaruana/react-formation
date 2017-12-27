@@ -5,6 +5,8 @@ import { bindActionCreators } from 'redux';
 import { connect } from "react-redux";
 import * as actions from './actions';
 import * as customValidators from '../../common/validators';
+import messages from '../../common/dictionary';
+
 
 class HomePage extends Component {
     constructor(props) {
@@ -93,5 +95,6 @@ export const formName = 'homeForm';
 
 export default connect(mapStateToProps, mapDispatchToProps)(Page({
     form: formName,
-    validators: customValidators
+    validators: customValidators,
+    messages: messages.validator
 })(HomePage));

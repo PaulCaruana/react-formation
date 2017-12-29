@@ -30,6 +30,7 @@ class HomePage extends Component {
             }
         ];
         const form = this.props.page.form;
+        const values = this.props[formName].values;
         return (
             <Form name={this.props.formName} onSubmit={this.onSubmit}>
                 <TextInput
@@ -38,11 +39,16 @@ class HomePage extends Component {
                     placeholder="Type your last name here"
                     label="Last name"
                 />
+                <Checkbox
+                    name="over18"
+                    label="Are you over 18 years old?"
+                    defaultChecked={false}
+                />
                 <TextInput
+                    if={values.over18}
                     name="age"
                     required
                     pattern="[0-9]*"
-                    integer
                     minValue="18"
                     maxValue="125"
                     placeholder="Type your age here"
@@ -60,11 +66,7 @@ class HomePage extends Component {
                     name="postalAddress"
                     label="Is your postal different than address?"
                 />
-                <Checkbox
-                    name="over18"
-                    label="Are you over 18 years old?"
-                />
-                <Button type="submit" primary label="Submit" disabled={form.field('name').$invalid} />
+                <Button type="submit" primary label="Submit" disabled={form.$invalid} />
             </Form>
         );
     }
@@ -72,7 +74,8 @@ class HomePage extends Component {
 
 function mapStateToProps(state, ownProps) {
     return {
-        [pageName]: state[pageName]
+        [pageName]: state[pageName],
+        [formName]: state[formName]
     };
 }
 

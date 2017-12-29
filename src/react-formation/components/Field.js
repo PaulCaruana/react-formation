@@ -30,10 +30,16 @@ export default (BaseComponent, propertyMapper = null) => class extends Component
         props.type = this.type;
         this.field = FieldController(this.props.name, props, this);
         this.form = this.context.registerChild(this.field);
-        if (this.props.defaultValue && this.context.values[this.props.name] === undefined) {
-            this.context.update(this.props.name, this.props.defaultValue);
+        const defaultValue = this.props.defaultValue || this.props.defaultChecked;
+        if (defaultValue !== undefined
+            && this.context.values[this.props.name] === undefined) {
+            this.context.update(this.props.name, defaultValue);
         }
         this.field.validate(this.context.values[this.props.name]);
+    }
+
+    componentWillUnmount() {
+        this.form.removeChild(this.field);
     }
 
     shouldComponentUpdate (newProps, newState) {
@@ -79,6 +85,9 @@ export default (BaseComponent, propertyMapper = null) => class extends Component
         const customProps = Object.keys(this.context.config.validators);
         const baseComponentProps = mapProps(props, mappedProps, customProps)(BaseComponent);
         this.field.$renderPending = false;
+        if (props.type === "submit") {
+            console.log(props)
+        }
         return (
             <div>
                 <BaseComponent {...baseComponentProps} />

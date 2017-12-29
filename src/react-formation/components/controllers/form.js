@@ -17,7 +17,9 @@ export default function formField(name, attrs, component) {
             return this;
         },
         removeChild: function (child) {
-            var index = this.$children.indexOf[child];
+            const index = this.$children.findIndex(function ($child) {
+                return $child === child;
+            });
             if (index > -1) {
                 this.$children.splice(index, 1);
             }
@@ -56,25 +58,28 @@ export default function formField(name, attrs, component) {
             return !this.$invalid;
         },
         get $invalid() {
-            return this.$children.find(child => {
-                return child.$invalid
+            const invalidChild = this.$children.find(child => {
+                return child.$invalid;
             });
+            return invalidChild !== undefined;
         },
         get $pristine() {
             return !this.$dirty;
         },
         get $dirty() {
-            return this.$children.find(child => {
+            const dirtyChild = this.$children.find(child => {
                 return child.$dirty;
             });
+            return dirtyChild !== undefined;
         },
         get $untouched() {
             return !this.$untouched;
         },
         get $touched() {
-            return this.$children.find(child => {
-                return child.$touched
+            const touchedChild =  this.$children.find(child => {
+                return child.$touched;
             });
+            return touchedChild !== undefined;
         },
         get $pending() {
             const pending = this.$children.find(child => {

@@ -45,9 +45,12 @@ export default (BaseComponent, propertyMapper = null) => class extends Component
     }
 
     onChange(event, index, value) {
+        const validInput = (value !== undefined || (event.target && event.target.validity.valid));
         const fieldValue = (value !== undefined) ? value : event.target.value;
-        this.context.update(this.props.name, fieldValue);
-        this.field.onChange(fieldValue);
+        if (validInput) {
+            this.context.update(this.props.name, fieldValue);
+            this.field.onChange(fieldValue);
+        }
     }
 
     onBlur(event, index, value) {
@@ -73,7 +76,8 @@ export default (BaseComponent, propertyMapper = null) => class extends Component
             mappedProps = baseProps;
         }
         this.type = mappedProps.type;
-        const baseComponentProps = mapProps(props, mappedProps)(BaseComponent);
+        const customProps = Object.keys(this.context.config.validators);
+        const baseComponentProps = mapProps(props, mappedProps, customProps)(BaseComponent);
         this.field.$renderPending = false;
         return (
             <div>

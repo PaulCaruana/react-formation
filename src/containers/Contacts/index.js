@@ -33,20 +33,20 @@ class HomePage extends Component {
         return (
             <Form name={this.props.formName} onSubmit={this.onSubmit}>
                 <TextInput
-                    name="suburb"
-                    placeholder="Suburb"
-                    label="Suburb"
-                />
-                <RadioGroup name="salutation" required >
-                    <Radio value="mr" label="Mr" />
-                    <Radio value="mrs" label="Mrs" />
-                    <Radio value="ms" label="Ms" />
-                </RadioGroup>
-                <TextInput
-                    name="name"
+                    name="lastName"
                     required
-                    placeholder="Type your name here"
-                    label="Name"
+                    placeholder="Type your last name here"
+                    label="Last name"
+                />
+                <TextInput
+                    name="age"
+                    required
+                    pattern="[0-9]*"
+                    integer
+                    minValue="18"
+                    maxValue="125"
+                    placeholder="Type your age here"
+                    label="Age"
                 />
                 <Select required options={items} label="Contact method" name="contactMethod" />
                 <TextInput
@@ -64,15 +64,6 @@ class HomePage extends Component {
                     name="over18"
                     label="Are you over 18 years old?"
                 />
-                <TextInput
-                    name="age"
-                    required
-                    integer
-                    minValue="18"
-                    maxValue="125"
-                    placeholder="Type your age here"
-                    label="Age"
-                    />
                 <Button type="submit" primary label="Submit" disabled={form.field('name').$invalid} />
             </Form>
         );

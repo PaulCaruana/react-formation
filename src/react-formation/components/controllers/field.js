@@ -54,8 +54,8 @@ export default function Field(name, props, component) {
             const promises = [];
             var validatorTypes = this.getValidators(props);
             for (var i = 0; i < validatorTypes.length; i++) {
-                var type = validatorTypes[i];
-                var validateResult = this.validateType(value, props, type);
+                var validator = validatorTypes[i];
+                var validateResult = this.validateType(value, props, validator);
                 promises.push(validateResult);
             }
             Promise.all(promises).then(() => {
@@ -64,40 +64,40 @@ export default function Field(name, props, component) {
                 this.setPending(false);
             });
         },
-        validateType: function(value, props, type) {
-            const validateResult = this.$validators[type](value, props, type, this);
+        validateType: function(value, props, validator) {
+            const validateResult = this.$validators[validator](value, props, validator, this);
             let message = null;
             if (isPromise(validateResult)) {
                 this.setPending(true);
                 validateResult.then(result => {
-                    this.clearError(type);
+                    this.clearError(validator);
                 }).catch(result => {
-                    message = this.getMessageTemplates(result.message, type, props.type, props.name)
-                    this.addError(type, message);
+                    message = this.getMessageTemplates(result.message, validator, props.validator, props.name)
+                    this.addError(validator, message);
                 });
             } else {
                 if (validateResult.valid) {
-                    this.clearError(type);
+                    this.clearError(validator);
                 } else {
-                    message = this.getMessageTemplates(validateResult.message, type, props.type, props.name)
-                    this.addError(type, message);
+                    message = this.getMessageTemplates(validateResult.message, validator, props.validator, props.name)
+                    this.addError(validator, message);
                 }
             }
             return validateResult;
         },
-        getMessageTemplates: function(dftMessage, validatorType, type, name) {
+        getMessageTemplates: function(dftMessage, validatorType, validator, name) {
             if (!this.$messageTemplates[validatorType]) {
-                const messageTemplate = validatorMessages(validatorType, type, name);
+                const messageTemplate = validatorMessages(validatorType, validator, name);
                 this.$messageTemplates[validatorType]
                     = (messageTemplate) ? eval('`' + messageTemplate + '`') : dftMessage; //eslint-disable-line
             }
             return this.$messageTemplates[validatorType];
         },
-        addClearError: function(type, result) {
+        addClearError: function(validator, result) {
             if (result.valid) {
-                this.clearError(type);
+                this.clearError(validator);
             } else {
-                this.addError(type, result.message);
+                this.addError(validator, result.message);
             }
         },
         addError: function (validatorType, dftMessage) {
@@ -110,11 +110,11 @@ export default function Field(name, props, component) {
             this.$invalid = true;
             this.redraw();
         },
-        clearError: function (type) {
-            if (!this.$errors[type]) {
+        clearError: function (validator) {
+            if (!this.$errors[validator]) {
                 return;
             }
-            delete this.$errors[type];
+            delete this.$errors[validator];
             this.$valid = this.isValid();
             this.$invalid = !this.$valid;
             this.redraw();
@@ -132,9 +132,9 @@ export default function Field(name, props, component) {
             var field = this.getField(fieldName);
             return (field)? field.props.label : null;
         },
-        clearFieldError: function(fieldName, type) {
+        clearFieldError: function(fieldName, validator) {
             var field = this.getField(fieldName);
-            field.clearError(type);
+            field.clearError(validator);
         },
         getVisibleErrors: function () {
             if (this.showErrors()) {

@@ -17,25 +17,25 @@ export default {
             message: `${props.label} url is invalid`
         };
     },
-    email: (value, props, type, field) => {
+    email: (value, props, validator, field) => {
         var valid = (!value || value === null || value === "") ? true : emailValidator.validate(value)
         return {
             valid: valid,
             message: `${props.label} address is invalid`
         };
     },
-    suburbMatches: (value, props, type, field) => {
-        var postcodeName = props[type];
+    suburbMatches: (value, props, validator, field) => {
+        var postcodeName = props[validator];
         field.clearFieldError(postcodeName, 'postcodeMatches')
         return suburbMatchesPostcode(value, props.label, field.getFieldValue(postcodeName), field.getFieldLabel(postcodeName));
     },
-    postcodeMatches: (value, props, type, field) => {
-        var suburbName = props[type];
+    postcodeMatches: (value, props, validator, field) => {
+        var suburbName = props[validator];
         field.clearFieldError(suburbName, 'suburbMatches')
         return suburbMatchesPostcode(field.getFieldValue(suburbName), field.getFieldLabel(suburbName), value, props.label);
     },
-    userNameIsValid: (value, props, type, field) => {
-        if (isEmpty(value) || (field.$invalid && !field.$errors[type])) {
+    userNameIsValid: (value, props, validator, field) => {
+        if (isEmpty(value) || (field.$invalid && !field.$errors[validator])) {
             return {valid: true};
         }
         return new Promise(function (resolve, reject) {

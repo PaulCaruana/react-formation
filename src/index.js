@@ -9,7 +9,7 @@ import createLogger from 'redux-logger';
 import promise from "redux-promise";
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import injectTapEventPlugin from 'react-tap-event-plugin';
-import HomePage from './containers/Contacts';
+import PatientInfo from './containers/Contacts';
 import reducers from './reducers';
 
 const reduxMiddleware = applyMiddleware(thunk);
@@ -27,7 +27,7 @@ ReactDOM.render(
             <BrowserRouter>
                 <div>
                     <Switch>
-                        <Route path="*" component={HomePage} />
+                        <Route path="*" component={PatientInfo} />
                     </Switch>
                 </div>
             </BrowserRouter>

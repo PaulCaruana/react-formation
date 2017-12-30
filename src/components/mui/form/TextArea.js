@@ -1,0 +1,12 @@
+import TextArea from 'material-ui/TextField';
+import { Field } from 'react-formation';
+
+const mapper = {
+    type: "textArea",
+    hintText: props => props.placeholder,
+    floatingLabelText: props => props.label,
+    multiLine: true,
+    rows: props => props.rows || 2,
+    rowsMax: props => props.rowsMax || 4
+};
+export default Field(TextArea, mapper);

@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { TextInput, Checkbox, Switch, Select, RadioGroup, Radio, Button } from 'components/index';
+import { TextInput, TextArea, Password, Checkbox, Switch, Select, RadioGroup, Radio, Button } from 'components/index';
 import { Page, Form } from 'react-formation';
 import { bindActionCreators } from 'redux';
 import { connect } from "react-redux";
@@ -8,7 +8,7 @@ import * as customValidators from '../../common/validators';
 import messages from '../../common/dictionary';
 
 
-class HomePage extends Component {
+class PatientInfo extends Component {
     constructor(props) {
         super(props);
         this.onSubmit = this.onSubmit.bind(this);
@@ -30,7 +30,7 @@ class HomePage extends Component {
             }
         ];
         const form = this.props.page.form;
-        const values = this.props[formName].values;
+        const vm = this.props[formName].values;
         return (
             <Form name={this.props.formName} onSubmit={this.onSubmit}>
                 <TextInput
@@ -39,13 +39,25 @@ class HomePage extends Component {
                     placeholder="Type your last name here"
                     label="Last name"
                 />
+                <Password
+                    name="password"
+                    required
+                    equals="confirmPassword"
+                    label="Password"
+                />
+                <Password
+                    name="confirmPassword"
+                    required
+                    equals="password"
+                    label="Password confirmation"
+                />
                 <Checkbox
                     name="over18"
                     label="Are you over 18 years old?"
                     defaultChecked={false}
                 />
                 <TextInput
-                    if={values.over18}
+                    if={vm.over18}
                     name="age"
                     required
                     pattern="[0-9]*"
@@ -53,6 +65,11 @@ class HomePage extends Component {
                     maxValue="125"
                     placeholder="Type your age here"
                     label="Age"
+                />
+                <TextArea
+                    name="apptDetails"
+                    label="Appointment details"
+                    placeholder="Enter appointment details"
                 />
                 <Select required options={items} label="Contact method" name="contactMethod" />
                 <TextInput
@@ -84,11 +101,11 @@ function mapDispatchToProps(dispatch) {
         actions: bindActionCreators(actions, dispatch)
     };
 }
-export const pageName = 'home';
-export const formName = 'homeForm';
+export const pageName = 'contact';
+export const formName = 'contactForm';
 
 export default connect(mapStateToProps, mapDispatchToProps)(Page({
     form: formName,
     validators: customValidators,
     messages: messages.validator
-})(HomePage));
+})(PatientInfo));

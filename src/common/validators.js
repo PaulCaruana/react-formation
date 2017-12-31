@@ -1,26 +1,25 @@
-const test = (params) => {
-    console.log(params)
-}
-export const minValue = (value, props, min) => {
-    const val = Number(value);
-    const minNum = Number(props[min]);
-    return {
-        valid: (value === undefined || value.trim() === '' || isNaN(val) || val >= minNum),
-        message: `${props.label} must be least ${minNum}`
-    };
-};
-export const maxValue = (value, props, max) => {
-    const val = Number(value);
-    const maxNum = Number(props[max]);
-    return {
-        valid: (value === undefined || value.trim() === '' || isNaN(val) || val <= maxNum),
-        message: `${props.label} must be no more than ${maxNum}`
-    };
+export const passwordValid = (value, props, validator, field) => {
+    console.log(field)
+    const REQUIRED_PATTERNS = [
+        /\d+/,    //numeric values
+        /[a-z]+/, //lowercase values
+        /[A-Z]+/, //uppercase values
+        /\W+/,    //special characters
+        /^\S+$/   //no whitespace allowed
+    ];
+    let valid = true;
+    const { passwordValid, ...rest } = field.$errors;
+    if (isEmpty(value) || !!Object.keys(rest).length) {
+        return { valid };
+    }
+    REQUIRED_PATTERNS.forEach((pattern) => {
+        valid = valid && pattern.test(value);
+    });
+    const message =
+        `${props.label} must contain a number, uppercase, lowercase & special character`;
+    return { valid, message };
 };
 
-export const integer = (value, props) => {
-    return {
-        valid: (value === undefined || value.trim() === '' || /^[+-]?\d+$/i.test(value.trim())),
-        message: `${props.label} must be a whole number`
-    };
+function isEmpty(value) {
+    return (!value || value === null || value === '');
 }

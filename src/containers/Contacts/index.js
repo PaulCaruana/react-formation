@@ -41,14 +41,16 @@ class PatientInfo extends Component {
                 />
                 <Password
                     name="password"
-                    required
-                    equals="confirmPassword"
                     label="Password"
+                    required
+                    minLen="6"
+                    maxLen="12"
+                    passwordValid
                 />
                 <Password
                     name="confirmPassword"
                     required
-                    equals="password"
+                    matches="password"
                     label="Password confirmation"
                 />
                 <Checkbox
@@ -70,6 +72,7 @@ class PatientInfo extends Component {
                     name="apptDetails"
                     label="Appointment details"
                     placeholder="Enter appointment details"
+                    required
                 />
                 <Select required options={items} label="Contact method" name="contactMethod" />
                 <TextInput

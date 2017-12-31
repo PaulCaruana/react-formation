@@ -10,6 +10,11 @@ const en = {
                 validators: {
                     required: '${props.label} must be selected'
                 }
+            },
+            password: {
+                validators: {
+                    matches: 'Both passwords must match'
+                }
             }
         },
         fields: {

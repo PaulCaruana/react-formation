@@ -24,6 +24,7 @@ export default function Field(name, props, component) {
         $validators: validators,
         $validatorMessages: validatorMessages,
         $messageTemplates: {},
+        $triggerValidations: [],
         setPending: function(pending) {
             if (pending === this.$pending) {
                 return;
@@ -72,26 +73,27 @@ export default function Field(name, props, component) {
                 validateResult.then(result => {
                     this.clearError(validator);
                 }).catch(result => {
-                    message = this.getMessageTemplates(result.message, validator, props.validator, props.name)
+                    message = this.getMessageTemplates(result.message, validator, props["type"], props.name)
                     this.addError(validator, message);
                 });
             } else {
                 if (validateResult.valid) {
                     this.clearError(validator);
                 } else {
-                    message = this.getMessageTemplates(validateResult.message, validator, props.validator, props.name)
+                    console.log(props.name, validator)
+                    message = this.getMessageTemplates(validateResult.message, validator, props["type"], props.name)
                     this.addError(validator, message);
                 }
             }
             return validateResult;
         },
-        getMessageTemplates: function(dftMessage, validatorType, validator, name) {
-            if (!this.$messageTemplates[validatorType]) {
-                const messageTemplate = validatorMessages(validatorType, validator, name);
-                this.$messageTemplates[validatorType]
+        getMessageTemplates: function(dftMessage, validator, type, name) {
+            if (!this.$messageTemplates[validator]) {
+                const messageTemplate = validatorMessages(validator, type, name);
+                this.$messageTemplates[validator]
                     = (messageTemplate) ? eval('`' + messageTemplate + '`') : dftMessage; //eslint-disable-line
             }
-            return this.$messageTemplates[validatorType];
+            return this.$messageTemplates[validator];
         },
         addClearError: function(validator, result) {
             if (result.valid) {
@@ -126,6 +128,7 @@ export default function Field(name, props, component) {
             return this.$form.getChild(fieldName);
         },
         getFieldValue: function(fieldName) {
+            fieldName = fieldName || this.name;
             return this.component.context.values[fieldName];
         },
         getFieldLabel: function(fieldName) {
@@ -167,10 +170,25 @@ export default function Field(name, props, component) {
             this.$errors = {};
             this.$renderPending = false;
         },
+        addTriggerValidation(field) {
+            const index = this.$triggerValidations.findIndex(function (triggerField) {
+                return triggerField === field;
+            });
+            if (index === -1) {
+                this.$triggerValidations.push(field);
+            }
+        },
+        triggerValidations() {
+            this.$triggerValidations.forEach((field) => {
+                const fieldValue = field.getFieldValue();
+                field.validate(fieldValue);
+            });
+        },
         onChange: function (value) {
             this.setDirty(true);
             this.$renderPending = true;
             this.validate(value);
+            this.triggerValidations();
         },
         onBlur: function (value) {
             this.setTouched(true);

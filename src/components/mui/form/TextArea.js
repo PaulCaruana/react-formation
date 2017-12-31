@@ -7,6 +7,7 @@ const mapper = {
     floatingLabelText: props => props.label,
     multiLine: true,
     rows: props => props.rows || 2,
-    rowsMax: props => props.rowsMax || 4
+    rowsMax: props => props.rowsMax || 4,
+    placeholder: null
 };
 export default Field(TextArea, mapper);

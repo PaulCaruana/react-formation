@@ -26,6 +26,7 @@ export default function mapProps(props, mapper, customProperties) {
             'multiple',
             'name',
             'pattern',
+            'placeholder',
             'readOnly',
             'required',
             'size',
@@ -49,7 +50,10 @@ export default function mapProps(props, mapper, customProperties) {
         const validPropNames = componentPropNames.concat(mappedPropNames).concat(rootProps);
         const componentProps = {};
         Object.keys(allProps).forEach(name => {
-            if (validPropNames.indexOf(name) > -1 && customProperties.indexOf(name) === -1) {
+            if (validPropNames.indexOf(name) > -1
+                && customProperties.indexOf(name) === -1
+                && (mapper[name] === undefined || mapper[name] != null)
+            ) {
                 componentProps[name] = allProps[name];
             }
         });

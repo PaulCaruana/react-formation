@@ -70,7 +70,7 @@ export default (BaseComponent, propertyMapper = null) => class extends Component
             value: this.context.values[this.props.name] || '',
             onChange: this.onChange.bind(this),
             onBlur: this.onBlur.bind(this),
-            errorText: SimpleList(this.field.getVisibleErrors()),
+            errorText: SimpleList(this.field.getVisibleErrors())
         };
         let props;
         let mappedProps;
@@ -85,9 +85,6 @@ export default (BaseComponent, propertyMapper = null) => class extends Component
         const customProps = Object.keys(this.context.config.validators);
         const baseComponentProps = mapProps(props, mappedProps, customProps)(BaseComponent);
         this.field.$renderPending = false;
-        if (props.type === "submit") {
-            console.log(props)
-        }
         return (
             <div>
                 <BaseComponent {...baseComponentProps} />

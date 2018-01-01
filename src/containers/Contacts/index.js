@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
-import { TextInput, TextArea, Password, Checkbox, Switch, Select, RadioGroup, Radio, Button } from 'components/index';
+import { TextInput, TextArea, Password, Checkbox, Switch, Select, RadioGroup, Radio, DatePicker, Button }
+    from 'components/index';
 import { Page, Form } from 'react-formation';
 import { bindActionCreators } from 'redux';
 import { connect } from "react-redux";
@@ -31,8 +32,14 @@ class PatientInfo extends Component {
         ];
         const form = this.props.page.form;
         const vm = this.props[formName].values;
+        const today = new Date().setHours(0,0,0,0);
         return (
             <Form name={this.props.formName} onSubmit={this.onSubmit}>
+                <RadioGroup name="salutation" required >
+                    <Radio value="mr" label="Mr" />
+                    <Radio value="mrs" label="Mrs" />
+                    <Radio value="ms" label="Ms" />
+                </RadioGroup>
                 <TextInput
                     name="lastName"
                     required
@@ -85,6 +92,14 @@ class PatientInfo extends Component {
                 <Switch
                     name="postalAddress"
                     label="Is your postal different than address?"
+                />
+                <DatePicker
+                    name="apptDate"
+                    placeholder="Enter appointment date"
+                    required
+                    shouldDisableDate={(date) => {
+                        return date.getTime() < today;
+                    }}
                 />
                 <Button type="submit" primary label="Submit" disabled={form.$invalid} />
             </Form>

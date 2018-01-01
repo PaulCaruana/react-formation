@@ -80,7 +80,6 @@ export default function Field(name, props, component) {
                 if (validateResult.valid) {
                     this.clearError(validator);
                 } else {
-                    console.log(props.name, validator)
                     message = this.getMessageTemplates(validateResult.message, validator, props["type"], props.name)
                     this.addError(validator, message);
                 }

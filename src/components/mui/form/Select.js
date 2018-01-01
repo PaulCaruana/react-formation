@@ -7,6 +7,7 @@ export default Field(SelectField, {
     type: "select",
     hintText: props => props.placeholder,
     floatingLabelText: props => props.label,
+    onChange: props => (event, key, payload) => props.onChange(event, payload),
     children: props => {
         const items = props.options;
         if (!items) {

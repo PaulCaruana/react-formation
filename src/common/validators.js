@@ -1,5 +1,4 @@
 export const passwordValid = (value, props, validator, field) => {
-    console.log(field)
     const REQUIRED_PATTERNS = [
         /\d+/,    //numeric values
         /[a-z]+/, //lowercase values

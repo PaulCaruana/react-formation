@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
-export default function mapProps(props, mapper, customProperties) {
+export default function mapProps(props, mapper, customProperties, field) {
     return ComposedComponent => {
         const rootProps = ['accept',
             'alt',
@@ -38,10 +38,10 @@ export default function mapProps(props, mapper, customProperties) {
             'onChange'];
         const mappedProps = Object.keys(mapper).reduce((acc, propName) => {
             const mapValue = mapper[propName];
-            const propValue = (typeof mapValue === 'function') ? mapValue(props) : mapValue;
+            const propValue = (typeof mapValue === 'function') ? mapValue(props, field) : mapValue;
             return { ...acc, [propName]: propValue };
         }, {});
-        const allProps = { ...mappedProps, ...props };
+        const allProps = { ...props, ...mappedProps };
         if (mappedProps.children) {
             allProps.children = mappedProps.children;
         }

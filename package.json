@@ -19,6 +19,8 @@
     "es6-enum": "^1.1.0",
     "es6-pick": "^1.0.0",
     "fast-deep-equal": "^1.0.0",
+    "intl": "^1.2.5",
+    "intl-locales-supported": "^1.0.0",
     "is-promise": "^2.1.0",
     "lodash": "^3.10.1",
     "map-props": "^1.0.0",

@@ -4,7 +4,7 @@ import { Field } from 'react-formation';
 
 export default Field(RadioButtonGroup, {
     type: "radio",
-    onChange: props => (event, checked) => props.onChange(event, null, checked),
+    onChange: props => (event, checked) => props.onChange(event, checked),
     valueSelected: props => props.value,
     style: props => ({ display: 'flex', marginTop: 16 }),
     children: props => {

@@ -23,6 +23,11 @@ export default (BaseComponent, propertyMapper = null) => class extends Component
         label: PropTypes.string,
         validate: PropTypes.arrayOf(PropTypes.string)
     };
+    constructor(props) {
+        super(props);
+        this.onChange = this.onChange.bind(this);
+        this.onBlur = this.onBlur.bind(this);
+    }
 
     componentWillMount() {
         this.type = (propertyMapper)? propertyMapper.type : null;
@@ -50,8 +55,8 @@ export default (BaseComponent, propertyMapper = null) => class extends Component
         this.onChange(event, null, value);
     }
 
-    onChange(event, index, value) {
-        const validInput = (value !== undefined || (event.target && event.target.validity.valid));
+    onChange(event, value) {
+        const validInput = (event && event.target && event.target.validity) ? event.target.validity.valid : true;
         const fieldValue = (value !== undefined) ? value : event.target.value;
         if (validInput) {
             this.context.update(this.props.name, fieldValue);
@@ -59,7 +64,7 @@ export default (BaseComponent, propertyMapper = null) => class extends Component
         }
     }
 
-    onBlur(event, index, value) {
+    onBlur(event, value) {
         const fieldValue = value || event.target.value;
         this.field.onBlur(fieldValue);
     }
@@ -68,8 +73,8 @@ export default (BaseComponent, propertyMapper = null) => class extends Component
         const baseProps = this.props;
         const fieldProps = {
             value: this.context.values[this.props.name] || '',
-            onChange: this.onChange.bind(this),
-            onBlur: this.onBlur.bind(this),
+            onChange: this.onChange,
+            onBlur: this.onBlur,
             errorText: SimpleList(this.field.getVisibleErrors())
         };
         let props;
@@ -83,7 +88,7 @@ export default (BaseComponent, propertyMapper = null) => class extends Component
         }
         this.type = mappedProps.type;
         const customProps = Object.keys(this.context.config.validators);
-        const baseComponentProps = mapProps(props, mappedProps, customProps)(BaseComponent);
+        const baseComponentProps = mapProps(props, mappedProps, customProps, this)(BaseComponent);
         this.field.$renderPending = false;
         return (
             <div>

@@ -1,12 +1,35 @@
-import React, { Component } from 'react';
 import DatePickerInternal from './DatePickerInternal';
+import { Field } from 'react-formation';
+import areIntlLocalesSupported from 'intl-locales-supported';
 
-export default class DatePicker extends Component {
-    render() {
-        return (
-            <div>
-               <DatePickerInternal {...this.props} />
-            </div>
-        );
-    }
+let DateTimeFormat;
+
+/**
+ * Use the native Intl.DateTimeFormat if available, or a polyfill if not.
+ */
+if (areIntlLocalesSupported(['fr', 'fa-IR'])) {
+    DateTimeFormat = global.Intl.DateTimeFormat;
+} else {
+    const IntlPolyfill = require('intl');
+    DateTimeFormat = IntlPolyfill.DateTimeFormat;
+    require('intl/locale-data/jsonp/fr');
+    require('intl/locale-data/jsonp/fa-IR');
 }
+const formatDate = new DateTimeFormat('en-US', {
+    day: 'numeric',
+    month: 'long',
+    year: 'numeric',
+}).format;
+
+const mapper = {
+    type: 'datePicker',
+    autoOk: true,
+    container: 'inline',
+    hintText: props => props.placeholder,
+    value: (props, field) => field.context.values[props.name] || {},
+    formatDate: () => formatDate,
+    onDismiss: props => (event, value) => props.onBlur(event, value),
+    placeholder: null
+};
+export default Field(DatePickerInternal, mapper);
+

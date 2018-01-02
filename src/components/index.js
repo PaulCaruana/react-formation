@@ -15,5 +15,6 @@ export const {
     RadioGroup,
     Radio,
     DatePicker,
+    TimePicker,
     Button
 } = ComposeMany(Conditional, formComponents);

@@ -52,7 +52,6 @@ export default function mapProps(props, mapper, customProperties, field) {
         Object.keys(allProps).forEach(name => {
             if (validPropNames.indexOf(name) > -1
                 && customProperties.indexOf(name) === -1
-                && (mapper[name] === undefined || mapper[name] != null)
             ) {
                 componentProps[name] = allProps[name];
             }

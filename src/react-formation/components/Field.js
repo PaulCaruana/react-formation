@@ -65,7 +65,7 @@ export default (BaseComponent, propertyMapper = null) => class extends Component
     }
 
     onBlur(event, value) {
-        const fieldValue = value || event.target.value;
+        const fieldValue = value || (event && event.target.value) || null;
         this.field.onBlur(fieldValue);
     }
 

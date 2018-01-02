@@ -8,4 +8,5 @@ export { default as Option } from './Option';
 export { default as RadioGroup } from './RadioGroup';
 export { default as Radio } from './Radio';
 export { default as DatePicker } from './DatePicker';
+export { default as TimePicker } from './TimePicker';
 export { default as Button } from './Button';

@@ -23,11 +23,11 @@ const formatDate = new DateTimeFormat('en-US', {
 
 const mapper = {
     type: 'datePicker',
-    autoOk: true,
-    container: 'inline',
+    autoOk: props => (props.autoOk === undefined) ? true : props.autoOk,
+    container: props => props.container || 'inline',
     hintText: props => props.placeholder,
     value: (props, field) => field.context.values[props.name] || {},
-    formatDate: () => formatDate,
+    formatDate:  props => props.container || formatDate,
     onDismiss: props => (event, value) => props.onBlur(event, value),
     placeholder: null
 };

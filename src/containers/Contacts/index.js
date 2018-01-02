@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { TextInput, TextArea, Password, Checkbox, Switch, Select, RadioGroup, Radio, DatePicker, Button }
+import { TextInput, TextArea, Password, Checkbox, Switch, Select, RadioGroup, Radio, DatePicker, TimePicker, Button }
     from 'components/index';
 import { Page, Form } from 'react-formation';
 import { bindActionCreators } from 'redux';
@@ -40,6 +40,12 @@ class PatientInfo extends Component {
                     <Radio value="mrs" label="Mrs" />
                     <Radio value="ms" label="Ms" />
                 </RadioGroup>
+                <TextInput
+                    name="firstName"
+                    required
+                    placeholder="Type your first name here"
+                    label="First name"
+                />
                 <TextInput
                     name="lastName"
                     required
@@ -95,11 +101,18 @@ class PatientInfo extends Component {
                 />
                 <DatePicker
                     name="apptDate"
+                    label="Appointment date"
                     placeholder="Enter appointment date"
                     required
                     shouldDisableDate={(date) => {
                         return date.getTime() < today;
                     }}
+                />
+                <TimePicker
+                    name="apptTime"
+                    label="Appointment time"
+                    placeholder="Enter appointment time"
+                    required
                 />
                 <Button type="submit" primary label="Submit" disabled={form.$invalid} />
             </Form>

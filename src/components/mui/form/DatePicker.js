@@ -26,6 +26,7 @@ const mapper = {
     autoOk: props => (props.autoOk === undefined) ? true : props.autoOk,
     container: props => props.container || 'inline',
     hintText: props => props.placeholder,
+    style: props => ({ marginTop: 16 }),
     value: (props, field) => field.context.values[props.name] || {},
     formatDate:  props => props.container || formatDate,
     onDismiss: props => (event, value) => props.onBlur(event, value),

@@ -1,6 +1,7 @@
 import React from 'react';
 import { RadioButton as Radio, RadioButtonGroup } from 'material-ui/RadioButton';
 import { Field } from 'react-formation';
+import PropTypes from 'prop-types';
 
 export default Field(RadioButtonGroup, {
     type: "radio",
@@ -38,3 +39,5 @@ export default Field(RadioButtonGroup, {
         );
     }
 });
+
+RadioButtonGroup.propTypes.errorText = PropTypes.object;

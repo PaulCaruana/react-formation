@@ -4,9 +4,8 @@ import emailValidator from 'email-validator';
 
 export default {
     required: (value, props) => {
-        var valid = (value && value !== '');
         return {
-            valid: valid,
+            valid: !isEmpty(value),
             message: `${props.label} must be entered`
         };
     },
@@ -124,6 +123,6 @@ function getXItemField(props, validator, field) {
 }
 
 function isEmpty(value) {
-    return (!value || value === null || value === '');
+    return (value === undefined || value === null || value === '');
 }
 

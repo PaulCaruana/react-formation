@@ -40,12 +40,6 @@ export default function formField(name, attrs, component) {
             });
             return child;
         },
-        findField: function (fieldName) {
-            var form = this;
-            while (form.$form != null) {
-                form = form.$form;
-            }
-        },
         field: function (fieldName) {
             const fields = this.$children.filter((child) => child.$isField);
             if (fields.length === 0) {
@@ -53,6 +47,15 @@ export default function formField(name, attrs, component) {
             }
             const foundField = fields.find((field) => (field.name === fieldName));
             return foundField || this.$emptyField;
+        },
+        renderChildren: function() {
+            this.$children.forEach(function (child) {
+                if (child.$isField) {
+                    child.$renderPending = true;
+                } else {
+                    child.renderChildren();
+                }
+            });
         },
         get $valid() {
             return !this.$invalid;
@@ -95,6 +98,7 @@ export default function formField(name, attrs, component) {
         },
         submitted: function () {
             this.$submitted = true;
+            this.renderChildren();
             this.redraw();
         },
         reset: function () {

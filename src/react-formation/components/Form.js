@@ -45,6 +45,7 @@ import FormController from './controllers/form';
 
     submit() {
         this.form.submitted();
+        this.form.$submitted = true;
         if (this.form.$ready) {
             this.props.onSubmit(assign({}, this.props.values));
             this.form.reset();
@@ -53,7 +54,11 @@ import FormController from './controllers/form';
 
     onSubmit = (e) => {
         e.preventDefault();
-        this.props.onSubmit(this.form, this.props.form.values);
+        this.form.submitted();
+        if (this.form.$ready) {
+            this.props.onSubmit(this.form, this.props.form.values);
+            this.form.reset();
+        }
     }
 
     render() {

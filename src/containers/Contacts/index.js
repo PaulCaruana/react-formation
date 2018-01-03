@@ -35,7 +35,7 @@ class PatientInfo extends Component {
         const today = new Date().setHours(0,0,0,0);
         return (
             <Form name={this.props.formName} onSubmit={this.onSubmit}>
-                <RadioGroup name="salutation" required >
+                <RadioGroup name="salutation" required label="Salutation">
                     <Radio value="mr" label="Mr" />
                     <Radio value="mrs" label="Mrs" />
                     <Radio value="ms" label="Ms" />
@@ -114,7 +114,7 @@ class PatientInfo extends Component {
                     placeholder="Enter appointment time"
                     required
                 />
-                <Button type="submit" primary label="Submit" disabled={form.$invalid} />
+                <Button type="submit" primary label="Submit"  />
             </Form>
         );
     }

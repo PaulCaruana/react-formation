@@ -1,3 +1,3 @@
-import reducer from '../containers/Contacts/reducer';
+import reducer from '../containers/PatientInfo/reducer';
 
 export default reducer;

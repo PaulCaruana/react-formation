@@ -9,7 +9,7 @@ import createLogger from 'redux-logger';
 import promise from "redux-promise";
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import injectTapEventPlugin from 'react-tap-event-plugin';
-import PatientInfo from './containers/Contacts';
+import PatientInfo from './containers/PatientInfo';
 import reducers from './reducers';
 
 const reduxMiddleware = applyMiddleware(thunk);

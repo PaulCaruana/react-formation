@@ -7,8 +7,8 @@ export const passwordValid = (value, props, validator, field) => {
         /^\S+$/   //no whitespace allowed
     ];
     let valid = true;
-    const { passwordValid, ...rest } = field.$errors;
-    if (isEmpty(value) || !!Object.keys(rest).length) {
+    //const { passwordValid, ...rest } = field.$errors;
+    if (isEmpty(value)) {
         return { valid };
     }
     REQUIRED_PATTERNS.forEach((pattern) => {
@@ -21,4 +21,13 @@ export const passwordValid = (value, props, validator, field) => {
 
 function isEmpty(value) {
     return (!value || value === null || value === '');
-}
+};
+
+function getXItemField(props, xItemFieldName, field) {
+    const xItemField = field.getField(xItemFieldName);
+    xItemField.addTriggerValidation(field);
+    const xItemLabel = `${xItemFieldName}Label`
+    props[xItemLabel] = field.getFieldLabel(xItemFieldName);
+    return xItemField;
+};
+

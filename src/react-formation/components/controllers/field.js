@@ -87,12 +87,8 @@ export default function Field(name, props, component) {
             return validateResult;
         },
         getMessageTemplates: function(dftMessage, validator, type, name) {
-            if (!this.$messageTemplates[validator]) {
-                const messageTemplate = validatorMessages(validator, type, name);
-                this.$messageTemplates[validator]
-                    = (messageTemplate) ? eval('`' + messageTemplate + '`') : dftMessage; //eslint-disable-line
-            }
-            return this.$messageTemplates[validator];
+            const messageTemplate = validatorMessages(validator, type, name);
+            return (messageTemplate) ? eval('`' + messageTemplate + '`') : dftMessage; //eslint-disable-line
         },
         addClearError: function(validator, result) {
             if (result.valid) {
@@ -119,6 +115,13 @@ export default function Field(name, props, component) {
             this.$valid = this.isValid();
             this.$invalid = !this.$valid;
             this.redraw();
+        },
+        hasAnotherError: function(validatorType) {
+            if (this.$valid) {
+                return false;
+            }
+            const { [validatorType]: value, ...rest } = this.$errors;
+            return !!Object.keys(rest).length;
         },
         showErrors: function () {
             return this.$invalid && (this.$touched || this.$form.$submitted);
@@ -150,7 +153,7 @@ export default function Field(name, props, component) {
         getValidators: function (props) {
             var attrNames = Object.keys(props);
             return attrNames.filter(attrName => {
-                return (this.$validators[attrName])
+                return (this.$validators[attrName]);
             });
         },
         redraw: function() {

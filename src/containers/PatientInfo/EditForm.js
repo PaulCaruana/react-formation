@@ -1,7 +1,9 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { Form } from 'react-formation';
 import { TextInput, TextArea, Password, Checkbox, Switch, Select, RadioGroup, Radio, DatePicker, TimePicker, Button }
     from 'components/index';
+import * as customValidators from '../../common/validators';
+import messages from '../../common/dictionary';
 
 const today = new Date().setHours(0, 0, 0, 0);
 const items = [
@@ -15,7 +17,7 @@ const items = [
     }
 ];
 
-export default ({ name, form, model, onSubmit }) => {
+const PatientInfo = ({ name, form, model, onSubmit }) => {
     return (
         <Form name={name} onSubmit={onSubmit}>
             <RadioGroup name="salutation" required label="Salutation">
@@ -41,6 +43,7 @@ export default ({ name, form, model, onSubmit }) => {
                 required
                 minLen="6"
                 maxLen="12"
+                notContains="firstName,lastName"
                 passwordValid
             />
             <Password
@@ -101,4 +104,11 @@ export default ({ name, form, model, onSubmit }) => {
         </Form>
     );
 };
-
+/*
+export default Page({
+    formNames: formName,
+    validators: customValidators,
+    messages: messages.validator
+})(PatientInfo);
+*/
+export default PatientInfo;

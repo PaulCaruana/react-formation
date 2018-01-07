@@ -1,13 +1,11 @@
 import React, { Component } from 'react';
-import { TextInput, TextArea, Password, Checkbox, Switch, Select, RadioGroup, Radio, DatePicker, TimePicker, Button }
-    from 'components/index';
 import { Page } from 'react-formation';
 import { bindActionCreators } from 'redux';
 import { connect } from "react-redux";
 import * as actions from './actions';
 import * as customValidators from '../../common/validators';
 import messages from '../../common/dictionary';
-import Form from './InfoForm';
+import Form from './EditForm';
 
 
 class PatientInfo extends Component {
@@ -23,7 +21,7 @@ class PatientInfo extends Component {
     render() {
         return (
             <Form
-                name={this.props.formName}
+                name={this.props.formNames}
                 form={this.props.page.form}
                 model={this.props[formName].values}
                 onSubmit={this.onSubmit}
@@ -48,7 +46,7 @@ export const containerName = 'patientInfo';
 export const formName = 'patientInfoCreate';
 
 export default connect(mapStateToProps, mapDispatchToProps)(Page({
-    form: formName,
+    formNames: formName,
     validators: customValidators,
     messages: messages.validator
 })(PatientInfo));

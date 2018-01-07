@@ -47,9 +47,10 @@ export default (BaseComponent, propertyMapper = null) => class extends Component
         this.form.removeChild(this.field);
     }
 
-    shouldComponentUpdate (newProps, newState) {
-        console.log(newProps.name, this.field.$renderPending);
-        return (this.field.$renderPending || !equals(this.props, newProps) || !equals(this.state, newState));
+    shouldComponentUpdate(newProps, newState) {
+        return (this.field.$renderPending
+        || !equals(this.props, newProps)
+        || !equals(this.state, newState));
     }
 
     onToggle(event, value) {
@@ -57,7 +58,8 @@ export default (BaseComponent, propertyMapper = null) => class extends Component
     }
 
     onChange(event, value) {
-        const validInput = (event && event.target && event.target.validity) ? event.target.validity.valid : true;
+        const validInput = (event && event.target && event.target.validity)
+            ? event.target.validity.valid : true;
         const fieldValue = (value !== undefined) ? value : event.target.value;
         if (validInput) {
             this.context.update(this.props.name, fieldValue);

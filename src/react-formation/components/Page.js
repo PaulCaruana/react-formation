@@ -40,7 +40,7 @@ const Page = (config) => {
                 {...this.props}
                 page={this.page}
                 ref={instance => this.page.registerComponent(instance)}
-                formName={config.form}
+                formNames={config.formNames}
             />);
         }
     };

@@ -33,30 +33,34 @@ export default {
         };
     },
     email: (value, props, validator, field) => {
-        var valid = (!value || value === null || value === '') ? true : emailValidator.validate(value)
+        const valid = (!value || value === null || value === '')
+            ? true : emailValidator.validate(value)
         return {
             valid: valid,
             message: `${props.label} address is invalid`
         };
     },
-    suburbMatches: (value, props, validator, field) => {
-        var postcodeName = props[validator];
-        field.clearFieldError(postcodeName, 'postcodeMatches')
-        return suburbMatchesPostcode(value, props.label, field.getFieldValue(postcodeName), field.getFieldLabel(postcodeName));
-    },
-    postcodeMatches: (value, props, validator, field) => {
-        var suburbName = props[validator];
-        field.clearFieldError(suburbName, 'suburbMatches')
-        return suburbMatchesPostcode(field.getFieldValue(suburbName), field.getFieldLabel(suburbName), value, props.label);
-    },
     matches: (value, props, validator, field) => {
-        const xItemField = getXItemField(props, validator, field);
+        const xItemFieldName = props[validator];
+        const xItemField = getXItemField(props, xItemFieldName, field);
         const xItemValue = xItemField.getFieldValue();
         const ignore = (xItemField.$invalid || isEmpty(value) || isEmpty(xItemValue));
         return {
             valid: (ignore || value === xItemValue),
             message: `${props.label} must match ${props.xItemLabel}`
         };
+    },
+    notContains: (value, props, validator, field) => {
+        const xItemFieldNameSet = props[validator];
+        const xItemFieldNames = Array.isArray(xItemFieldNameSet) ?
+            xItemFieldNameSet : xItemFieldNameSet.split(',');
+        for (let i = 0; i < xItemFieldNames.length; i++) {
+            const result = notContainsField(value, props, xItemFieldNames[i], field);
+            if (!result.valid) {
+                return result;
+            }
+        }
+        return { valid: true };
     },
     minValue: (value, props, min) => {
         const val = Number(value);
@@ -99,26 +103,23 @@ export default {
     }
 };
 
-function suburbMatchesPostcode(suburb, suburbLabel, postcode, postcodeLabel) {
-    if (isEmpty(suburb) || isEmpty(postcode)) {
-        return {valid: true};
-    }
-    ;
-    var valid = true
-    if (suburb === 'Pyrmont') {
-        valid = (postcode === "2009")
-    }
+function notContainsField(value, props, xItemFieldName, field) {
+    const xItemField = getXItemField(props, xItemFieldName, field);
+    const xItemValue = xItemField.getFieldValue();
+    const ignore = (xItemField.$invalid || isEmpty(value) || isEmpty(xItemValue));
     return {
-        valid: valid,
-        message: `${ suburbLabel } ${ suburb } does not match ${ postcodeLabel } ${ postcode }`
-    }
+        valid: ignore || (value.toLowerCase().indexOf(xItemValue.toLowerCase()) === -1),
+        message: `${props.label} must not contain ${props.xItemLabel}`
+    };
 }
 
-function getXItemField(props, validator, field) {
-    const xItemFieldName = props[validator];
+function getXItemField(props, xItemFieldName, field) {
     const xItemField = field.getField(xItemFieldName);
     xItemField.addTriggerValidation(field);
-    props.xItemLabel = field.getFieldLabel(xItemFieldName);
+    const fieldLabel = field.getFieldLabel(xItemFieldName);
+    const xItemLabel = `${xItemFieldName}Label`;
+    props[xItemLabel] = fieldLabel;
+    props.xItemLabel = fieldLabel;
     return xItemField;
 }
 

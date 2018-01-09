@@ -4,6 +4,8 @@ import { TextInput, TextArea, Password, Checkbox, Switch, Select, RadioGroup, Ra
     from 'components/index';
 import * as customValidators from '../../common/validators';
 import messages from '../../common/dictionary';
+import { Throttle } from 'react-throttle';
+import { Debounce } from 'react-throttle';
 
 const today = new Date().setHours(0, 0, 0, 0);
 const items = [
@@ -78,6 +80,8 @@ const PatientInfo = ({ name, form, model, onSubmit }) => {
                 name="email"
                 required
                 email
+                emailInUse
+                debounce="500"
                 placeholder="Type your email here"
                 label="E-mail"
             />

@@ -7,7 +7,6 @@ export const passwordValid = (value, props, validator, field) => {
         /^\S+$/   //no whitespace allowed
     ];
     let valid = true;
-    //const { passwordValid, ...rest } = field.$errors;
     if (isEmpty(value)) {
         return { valid };
     }
@@ -19,15 +18,24 @@ export const passwordValid = (value, props, validator, field) => {
     return { valid, message };
 };
 
+export const emailInUse = (value, props, validatorType, field) => {
+    if (isEmpty(value) || (field.hasAnotherError(validatorType))) {
+        return { valid: true };
+    }
+    return new Promise(function (resolve, reject) {
+        setTimeout(function () {
+            if (['test@example.com', 'test@formation.com.au'].includes(value)) {
+                reject({
+                    valid: false,
+                    message: `${value} is already taken`
+                });
+            } else {
+                resolve({ valid: true });
+            }
+        }, 1000);
+    });
+}
+
 function isEmpty(value) {
     return (!value || value === null || value === '');
-};
-
-function getXItemField(props, xItemFieldName, field) {
-    const xItemField = field.getField(xItemFieldName);
-    xItemField.addTriggerValidation(field);
-    const xItemLabel = `${xItemFieldName}Label`
-    props[xItemLabel] = field.getFieldLabel(xItemFieldName);
-    return xItemField;
-};
-
+}

@@ -4,6 +4,7 @@ import FieldController from './controllers/field';
 import SimpleList from './SimpleList';
 import mapProps from '../mapProps';
 import equals from 'fast-deep-equal';
+import debounce from 'lodash.debounce'
 
 
 export default (BaseComponent, propertyMapper = null) => class extends Component {
@@ -23,10 +24,15 @@ export default (BaseComponent, propertyMapper = null) => class extends Component
         label: PropTypes.string,
         validate: PropTypes.arrayOf(PropTypes.string)
     };
+
     constructor(props) {
         super(props);
         this.onChange = this.onChange.bind(this);
         this.onBlur = this.onBlur.bind(this);
+        this.onDebounce = debounce(function(event, value) {
+            this.onPostChangeInternal(event, value);
+         }, this.props.debounce);
+        this.onPostChange = (this.props.debounce) ? this.onDebounce : this.onPostChangeInternal;
     }
 
     componentWillMount() {
@@ -63,8 +69,14 @@ export default (BaseComponent, propertyMapper = null) => class extends Component
         const fieldValue = (value !== undefined) ? value : event.target.value;
         if (validInput) {
             this.context.update(this.props.name, fieldValue);
+            this.field.$renderPending = true;
             this.field.onChange(fieldValue);
+            this.onPostChange(event, fieldValue);
         }
+    }
+
+    onPostChangeInternal(event, value) {
+        this.field.onChange(value);
     }
 
     onBlur(event, value) {

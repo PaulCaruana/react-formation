@@ -70,7 +70,6 @@ export default (BaseComponent, propertyMapper = null) => class extends Component
         if (validInput) {
             this.context.update(this.props.name, fieldValue);
             this.field.$renderPending = true;
-            this.field.onChange(fieldValue);
             this.onPostChange(event, fieldValue);
         }
     }

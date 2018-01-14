@@ -64,7 +64,7 @@ import FormController from './controllers/form';
     render() {
         this.form.$renderPending = false;
         return (
-            <form onSubmit={this.onSubmit} ref={element => { this.element = element; }}>
+            <form onSubmit={this.onSubmit} ref={element => { this.element = element; }} >
                 {this.props.children}
             </form>
         );

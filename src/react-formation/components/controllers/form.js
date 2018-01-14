@@ -10,7 +10,7 @@ export default function formField(name, attrs, component) {
         $children: [],
         $page: null,
         $renderPending: false,
-        $emptyField: new FieldController('_empty'),
+        $placeholderField: null,
         registerChild: function (child) {
             this.$children.push(child);
             child.$form = this;
@@ -43,10 +43,10 @@ export default function formField(name, attrs, component) {
         field: function (fieldName) {
             const fields = this.$children.filter((child) => child.$isField);
             if (fields.length === 0) {
-                return this.$emptyField;
+                return this.placeholderField();
             }
             const foundField = fields.find((field) => (field.name === fieldName));
-            return foundField || this.$emptyField;
+            return foundField || this.placeholderField();
         },
         renderChildren: function() {
             this.$children.forEach(function (child) {
@@ -56,6 +56,12 @@ export default function formField(name, attrs, component) {
                     child.renderChildren();
                 }
             });
+        },
+        placeholderField: function() {
+            if (!this.$placeholderField) {
+                this.$placeholderField = new FieldController('_placeholderField');
+            }
+            return this.$placeholderField;
         },
         get $valid() {
             return !this.$invalid;

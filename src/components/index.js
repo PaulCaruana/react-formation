@@ -1,4 +1,3 @@
-import React, { Component } from 'react';
 import * as formComponents from './mui/form';
 import { Form } from 'react-formation';
 import { ComposeMany, Conditional } from 'react-componentize';

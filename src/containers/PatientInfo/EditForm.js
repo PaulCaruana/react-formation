@@ -2,10 +2,7 @@ import React from 'react';
 import { Form } from 'react-formation';
 import { TextInput, TextArea, Password, Checkbox, Switch, Select, RadioGroup, Radio, DatePicker, TimePicker, Button }
     from 'components/index';
-import * as customValidators from '../../common/validators';
-import messages from '../../common/dictionary';
-import { Throttle } from 'react-throttle';
-import { Debounce } from 'react-throttle';
+import ToggleDisplay from 'react-toggle-display';
 
 const today = new Date().setHours(0, 0, 0, 0);
 const items = [
@@ -69,12 +66,6 @@ const PatientInfo = ({ name, form, model, onSubmit }) => {
                 placeholder="Type your age here"
                 label="Age"
             />
-            <TextArea
-                name="apptDetails"
-                label="Appointment details"
-                placeholder="Enter appointment details"
-                required
-            />
             <Select required options={items} label="Contact method" name="contactMethod" />
             <TextInput
                 name="email"
@@ -86,24 +77,33 @@ const PatientInfo = ({ name, form, model, onSubmit }) => {
                 label="E-mail"
             />
             <Switch
-                name="postalAddress"
-                label="Is your postal different than address?"
+                name="arrangeAppt"
+                label="Do you wish to make an appointment?"
+                defaultChecked={false}
             />
-            <DatePicker
-                name="apptDate"
-                label="Appointment date"
-                placeholder="Enter appointment date"
-                required
-                shouldDisableDate={(date) => {
-                    return date.getTime() < today;
-                }}
-            />
-            <TimePicker
-                name="apptTime"
-                label="Appointment time"
-                placeholder="Enter appointment time"
-                required
-            />
+            <ToggleDisplay if={model.arrangeAppt} tag="section">
+                <DatePicker
+                    name="apptDate"
+                    label="Appointment date"
+                    placeholder="Enter appointment date"
+                    required
+                    shouldDisableDate={(date) => {
+                        return date.getTime() < today;
+                    }}
+                />
+                <TimePicker
+                    name="apptTime"
+                    label="Appointment time"
+                    placeholder="Enter appointment time"
+                    required
+                />
+                <TextArea
+                    name="apptDetails"
+                    label="Appointment details"
+                    placeholder="Enter appointment details"
+                    required
+                />
+            </ToggleDisplay>
             <Button type="submit" primary label="Submit" />
         </Form>
     );

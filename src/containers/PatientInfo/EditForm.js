@@ -1,7 +1,7 @@
 import React from 'react';
 import { Form } from 'react-formation';
 import { TextInput, TextArea, Password, Checkbox, Switch, Select, RadioGroup, Radio, DatePicker, TimePicker, Button }
-    from 'components/index';
+    from 'react-formation/mapperComponents/mui';
 import ToggleDisplay from 'react-toggle-display';
 
 const today = new Date().setHours(0, 0, 0, 0);
@@ -56,16 +56,17 @@ const PatientInfo = ({ name, form, model, onSubmit }) => {
                 label="Are you over 18 years old?"
                 defaultChecked={false}
             />
-            <TextInput
-                if={model.over18}
-                name="age"
-                required
-                pattern="[0-9]*"
-                minValue="18"
-                maxValue="125"
-                placeholder="Type your age here"
-                label="Age"
-            />
+            <ToggleDisplay if={model.over18} tag="div">
+                <TextInput
+                    name="age"
+                    required
+                    pattern="[0-9]*"
+                    minValue="18"
+                    maxValue="125"
+                    placeholder="Type your age here"
+                    label="Age"
+                />
+            </ToggleDisplay>
             <Select required options={items} label="Contact method" name="contactMethod" />
             <TextInput
                 name="email"

@@ -1,5 +1,5 @@
 import TextArea from 'material-ui/TextField';
-import { Field } from 'react-formation';
+import { Field } from '../../';
 
 const mapper = {
     type: "textArea",

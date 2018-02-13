@@ -2,7 +2,7 @@ let path = require('path');
 
 module.exports = {
     entry: [
-        './src/index.js'
+        './index.js'
     ],
     output: {
         path: __dirname,
@@ -28,7 +28,8 @@ module.exports = {
         extensions: ['', '.js', '.jsx'],
         root: [
             path.resolve('./src')
-        ]
+        ],
+        alias: { 'react': path.resolve(__dirname, './build/node_modules', 'react') }
     },
     devServer: {
         historyApiFallback: true,

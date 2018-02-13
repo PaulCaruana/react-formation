@@ -1,12 +1,13 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+
 import FieldController from './controllers/field';
+
 import SimpleList from './SimpleList';
 import mapProps from '../mapProps';
 import rootProps from '../rootProps';
 import equals from 'fast-deep-equal';
 import debounce from 'lodash.debounce';
-
 
 export default (BaseComponent, mapper = null) => class extends Component {
 
@@ -125,3 +126,4 @@ export default (BaseComponent, mapper = null) => class extends Component {
         validate: PropTypes.arrayOf(PropTypes.string)
     };
 };
+

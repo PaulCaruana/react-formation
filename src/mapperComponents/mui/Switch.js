@@ -1,5 +1,5 @@
 import Toggle from 'material-ui/Toggle';
-import { Field } from 'react-formation';
+import { Field } from '../../';
 
 export default Field(Toggle, {
     type: "toggle",

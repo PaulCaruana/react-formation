@@ -82,7 +82,7 @@ export default function formField(name, attrs, component) {
             return dirtyChild !== undefined;
         },
         get $untouched() {
-            return !this.$untouched;
+            return !this.$touched;
         },
         get $touched() {
             const touchedChild =  this.$children.find(child => {

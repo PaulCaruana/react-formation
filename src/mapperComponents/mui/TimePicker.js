@@ -1,5 +1,5 @@
 import TimePicker from 'material-ui/TimePicker';
-import { Field } from 'react-formation';
+import { Field } from '../../';
 import PropTypes from 'prop-types';
 
 const mapper = {

@@ -1,6 +1,6 @@
 import React from 'react';
 import { RadioButton as Radio, RadioButtonGroup } from 'material-ui/RadioButton';
-import { Field } from 'react-formation';
+import { Field } from '../../';
 import PropTypes from 'prop-types';
 
 export default Field(RadioButtonGroup, {

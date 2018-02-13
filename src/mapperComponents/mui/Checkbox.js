@@ -1,5 +1,5 @@
 import Checkbox from 'material-ui/Checkbox';
-import { Field } from 'react-formation';
+import { Field } from '../../';
 
 export default Field(Checkbox, {
     type: "checkbox",

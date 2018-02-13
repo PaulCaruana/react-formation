@@ -1,8 +1,8 @@
 import { combineReducers } from "redux";
 import { handleActions } from 'redux-actions';
 import * as actions from './constants';
-import formationReducer from 'react-formation/reducer';
-import { formName as homePageForm, pageName as homePage } from './index';
+import { reducer as formationReducer } from 'react-formation';
+import { formName as homePageForm, containerName as homePage } from './index';
 
 const initialState = {
     response: {}

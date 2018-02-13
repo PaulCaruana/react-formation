@@ -1,7 +1,7 @@
 import React from 'react';
 import SelectField from 'material-ui/SelectField';
 import Option from './Option';
-import { Conditional, Field } from 'react-formation';
+import { Field } from '../../';
 
 export default Field(SelectField, {
     type: "select",

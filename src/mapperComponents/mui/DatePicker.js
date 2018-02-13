@@ -1,5 +1,5 @@
 import DatePickerInternal from './DatePickerInternal';
-import { Field } from 'react-formation';
+import { Field } from '../../';
 import areIntlLocalesSupported from 'intl-locales-supported';
 
 let DateTimeFormat;

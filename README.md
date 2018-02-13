@@ -13,6 +13,6 @@ Checkout this repo, install dependencies, then start the gulp process with the f
 > git clone https://github.com/PaulCaruana/react-formation.git
 > npm install && npm run build
 > cd examples/material-ui
-> npm install &&npm start
+> npm install && npm start
 ```
 

@@ -24,6 +24,88 @@ const PatientInfo = ({ name, form, model, onSubmit }) => {
                 <Radio value="mrs" label="Mrs" />
                 <Radio value="ms" label="Ms" />
             </RadioGroup>
+            <TextInput
+                name="firstName"
+                required
+                placeholder="Type your first name here"
+                label="First name"
+            />
+            <TextInput
+                name="lastName"
+                required
+                placeholder="Type your last name here"
+                label="Last name"
+            />
+            <Password
+                name="password"
+                label="Password"
+                required
+                minLen="6"
+                maxLen="12"
+                notContains="firstName,lastName"
+                passwordValid
+            />
+            <Password
+                name="confirmPassword"
+                required
+                matches="password"
+                label="Password confirmation"
+            />
+            <Checkbox
+                name="over18"
+                label="Are you over 18 years old?"
+                defaultChecked={false}
+            />
+            <ToggleDisplay if={model.over18} tag="div">
+                <TextInput
+                    name="age"
+                    required
+                    pattern="[0-9]*"
+                    minValue="18"
+                    maxValue="125"
+                    placeholder="Type your age here"
+                    label="Age"
+                />
+            </ToggleDisplay>
+            <Select required options={items} label="Contact method" name="contactMethod" />
+            <TextInput
+                name="email"
+                required
+                email
+                emailInUse
+                debounce="500"
+                placeholder="Type your email here"
+                label="E-mail"
+            />
+            <Switch
+                name="arrangeAppt"
+                label="Do you wish to make an appointment?"
+                defaultChecked={false}
+            />
+            <ToggleDisplay if={model.arrangeAppt} tag="section">
+                <DatePicker
+                    name="apptDate"
+                    label="Appointment date"
+                    placeholder="Enter appointment date"
+                    required
+                    shouldDisableDate={(date) => {
+                        return date.getTime() < today;
+                    }}
+                />
+                <TimePicker
+                    name="apptTime"
+                    label="Appointment time"
+                    placeholder="Enter appointment time"
+                    required
+                />
+                <TextArea
+                    name="apptDetails"
+                    label="Appointment details"
+                    placeholder="Enter appointment details"
+                    required
+                />
+            </ToggleDisplay>
+            <Button type="submit" primary label="Submit" />
         </Form>
     );
 };

@@ -11,7 +11,7 @@ import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import injectTapEventPlugin from 'react-tap-event-plugin';
 import PatientInfo from './containers/PatientInfo';
 import reducers from './reducers';
-import registerServiceWorker from './registerServiceWorker';
+//import registerServiceWorker from './registerServiceWorker';
 
 const reduxMiddleware = applyMiddleware(thunk);
 
@@ -35,4 +35,4 @@ ReactDOM.render(
         </MuiThemeProvider>
     </Provider>
     , document.getElementById('root'));
-registerServiceWorker();
+//registerServiceWorker();

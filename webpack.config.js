@@ -1,40 +1,49 @@
-let path = require('path');
+let path = require("path");
 
 module.exports = {
-    entry: [
-        './index.js'
-    ],
+    entry: ["./index.js"],
     output: {
         path: __dirname,
-        publicPath: '/',
-        filename: 'bundle.js'
+        publicPath: "/",
+        filename: "bundle.js"
     },
     module: {
         loaders: [
             {
                 exclude: /node_modules/,
-                loader: 'babel',
+                loader: "babel",
                 query: {
-                    presets: ['react', 'es2015', 'stage-1']
-                },
+                    presets: ["react", "es2015", "stage-1"]
+                }
             },
             {
                 test: /\.json$/,
-                loader: 'json'
+                loader: "json"
             }
         ]
     },
     resolve: {
-        extensions: ['', '.js', '.jsx'],
-        root: [
-            path.resolve('./src')
-        ],
-        alias: { 'react': path.resolve(__dirname, './build/node_modules', 'react') }
+        extensions: ["", ".js", ".jsx"],
+        root: [path.resolve("./src")]
     },
     devServer: {
         historyApiFallback: true,
-        contentBase: './'
+        contentBase: "./"
     },
     debug: true,
-    devtool: 'source-map'
+    devtool: "source-map",
+    externals: {
+        react: {
+            root: "React",
+            commonjs: "react",
+            commonjs2: "react",
+            amd: "react"
+        },
+        "react-dom": {
+            root: "ReactDOM",
+            commonjs: "react-dom",
+            commonjs2: "react-dom",
+            amd: "react-dom"
+        }
+    }
 };

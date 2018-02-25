@@ -1,3 +1,4 @@
+/*eslint-disable no-template-curly-in-string */
 const en = {
     form: {
         global: {
@@ -27,4 +28,5 @@ const en = {
         }
     }
 };
+/*eslint-enable */
 export default en;

@@ -22,7 +22,6 @@
     "react-tap-event-plugin": "^3.0.0",
     "react-toggle-display": "^2.2.0",
     "react-formation": "file:../../build",
-    "material-ui": "^0.20.0",
     "axios": "^0.16.1"
   }
 }

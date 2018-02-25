@@ -1,7 +1,4 @@
 import PropTypes from 'prop-types';
-
-import fieldValidators from '../validators/fieldValidators';
-import shallowEqual from 'react-pure-render/shallowEqual';
 import isPromise from 'is-promise';
 
 
